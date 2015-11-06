@@ -1,0 +1,42 @@
+<html>
+  <body>
+    <div class="email-wrap">
+      <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <div class='panel panel-default contact-card-inner'>
+          <div class='panel-body'>
+            <div class="panel-body text-center" style='height: 100px;'>
+              <img src="cid:sg.png"/>
+            </div>
+            <div>
+              <h3>Review your courses today.</h3>
+              <hr>
+              <div><b>RIT Student Government</b> encourages you to review your courses.</div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><h3>Course</h3></th>
+                      <th><h3>Instructor</h3></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each sections}}
+                      <tr class="active">
+                        <td><h4>{{ this.title }}</h4></td>
+                        <td><h4>{{ this.instructor }}</h4></td>
+                        <td><a href="{{ absolutePathFor 'evaluations' this.id }}"
+                               class="btn btn-default">
+                               Start Evaluation</a></td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

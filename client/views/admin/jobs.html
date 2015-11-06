@@ -1,0 +1,62 @@
+<template name="jobs">
+  {{> aboutJobs }}
+  {{#each jobs}}
+    {{> job}}
+  {{/each}}
+</template>
+
+<template name="aboutJobs">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">What are e-mail campaigns?</h3></div>
+    <div class="panel-body">
+      <p>E-mail campaigns send each RIT student an individualized message informing them of evaluation availablity.</p>
+      <form><button type="submit" class="btn btn-primary btn-lg btn-block">Create New Campaign</button></form>
+    </div>
+  </div>      
+</template>
+
+<template name="job">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title ellipsis">Job #{{_id}} ({{progress.percent}}% Done)
+        <span class="hidden-xs pull-right">
+          Status: {{status}}
+        </span>
+      </h3>
+    </div>
+    <div class="progress progress-job">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress.percent}}%">
+        <span class="sr-only">{{progress.percent}}% Complete</span>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="text-right">
+        <form>
+          <button class="btn btn-default" type="submit">
+            Delete Job
+          </button>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Message</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each log}}
+              <tr>
+                <td>{{ level }}</td>
+                <td>{{ message }}</td>
+                <td>{{ jobLogTime time }}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

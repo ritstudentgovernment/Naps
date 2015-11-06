@@ -1,0 +1,23 @@
+@import "variables.import.less";
+
+.slider.slider-horizontal {
+  @media (max-width: @screen-xs-max) {
+    left: 12.5%;
+    margin-left: 0;
+    width: 75%;
+  }
+  @media (min-width: @screen-md-min) {
+    float: left;
+  }
+}
+
+.slider-label {
+  @media (max-width: @screen-sm-max) {
+    display: block;
+  }
+  @media (min-width: @screen-md-min) {
+    height: 60px;
+    padding-top: 24px;
+    padding-left: 25px;
+  }
+}

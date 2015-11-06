@@ -1,0 +1,51 @@
+<template name="index">
+  <div class="tiles">
+    <div class="tile">
+      <div class="container text-center">
+        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+          <h2 class="carousel-title text-center">
+            OpenEvals
+          </h2>
+          <br>
+          <h2 class="text-center">A course review system that works for everyone.</h2>
+          <br>
+          <a href="{{pathFor 'search'}}" class="btn btn-lg btn-primary">
+            Find My Instructors
+            <span class="glyphicon glyphicon-search glyphicon-padding"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    {{#each tiles}}
+      <div class="tile">
+        <div class="container">
+          <div class="col-xs-10 col-xs-offset-1">
+            <div class="media">
+              {{ #if eq mediaClass "media-left" }}
+                {{ >media }}
+              {{ /if }}
+              <div class="media-body">
+                <h3 style="margin-top: 0;"><strong>{{ title }}</strong></h3>
+                <p class="lead" style="margin-bottom: 0;">{{ description }}</p>
+              </div>
+              {{ #if eq mediaClass "media-right" }}
+                {{ >media }}
+              {{ /if }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <div class="tile">
+      <div class="container text-center">
+        <p><a href="{{pathFor 'evaluationsShow'}}" class="btn btn-lg btn-primary">Review your courses</a></p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="media">
+  <div class="{{ mediaClass }} hidden-xs">
+    <img class="media-object" src="{{ icon }}">
+  </div>
+</template>

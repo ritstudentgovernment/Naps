@@ -1,0 +1,12 @@
+<template name="layout">
+    {{> header}}
+    {{> yield}}
+    {{> login}}
+    {{#if loggingIn}}
+      {{> loading}}
+    {{/if}}
+    {{#if session 'waiting'}}
+      {{> loading}}
+    {{/if}}
+    {{> errors}}
+</template>

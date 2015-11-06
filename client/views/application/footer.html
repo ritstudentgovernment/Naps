@@ -1,0 +1,56 @@
+<template name="footer">
+  <div class="footer">
+
+    <div class="footer-left col-lg-6 col-md-6 col-sm-6">
+      <div class="col-sm-8 col-sm-offset-2 col-md-9 col-md-offset-2">
+        <p class="footer-subtitle">
+          About
+        </p>
+        <p style="font-size: 20px;">
+          OpenEvals is an instructor evaluation system to assist students in course enrollment with confidence.
+        </p>
+        <p style="font-size: 15px;">
+          <a href="https://sg.rit.edu/">
+            &copy;&nbsp;&nbsp;RIT Student Government {{ copyrightYear }}
+          </a>
+          <br>
+          <a href="https://github.com/ritstudentgovernment/evals">
+            <span class="glyphicon glyphicon-link"></span>
+            Available on GitHub.
+          </a>
+          <br>
+          <br>
+          <span class="footer-version">
+            Created by Peter Mikitsh
+            <br>
+            {{ singleton.version }}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-right col-lg-6 col-md-6 col-sm-6">
+      <div class="col-sm-6 col-sm-offset-1 col-md-4 col-md-offset-1">
+        <p class="footer-subtitle">
+          Legal
+        </p>
+        <p>
+          <a href="http://www.rit.edu/copyright.html">Copyright</a>
+          <br>
+          <a href="http://www.rit.edu/privacystatement.html">Privacy Statement</a>
+          <br>
+          <a href="http://www.rit.edu/disclaimer.html">Disclaimer</a>
+        </p>
+      </div>
+      <div class="col-sm-3 footer-count">
+        <div class="footer-subtitle">
+          Evaluations
+        </div>
+        <h2 class="count">
+          {{ singleton.evaluationCount }}
+        </h2>
+      </div>
+    </div>
+
+  </div>
+</template>

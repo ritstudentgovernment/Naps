@@ -1,0 +1,25 @@
+<template name="mapMain">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="shadow hidden-xs">
+    <div class="side-nav">
+      <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+      {{#if addingTree}}
+        {{> addTree}}
+      {{else}}
+        {{#if selectedTree}}
+          {{#with selectedTree}}
+            {{> sidenav}}
+          {{/with}}
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="map-container">
+    {{> googleMap name="treeMap" options=exampleMapOptions}}
+  </div>
+</template>
+
+<template name="replace">
+
+</template>

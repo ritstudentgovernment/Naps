@@ -1,0 +1,9 @@
+<template name="globalSettings">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">What are global settings?</h3></div>
+    <div class="panel-body">
+      <p>Global settings are configuration options that impact all users on the site.</p>
+      {{> quickForm collection="Singleton" doc=singletonDoc id="updateGlobalSettings" type="update"}}
+    </div>
+  </div>    
+</template>

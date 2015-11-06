@@ -1,0 +1,16 @@
+<template name="addTree">
+
+  {{#autoForm collection="Trees" id="treeForm" type="insert"}}
+  
+  <fieldset>
+    <legend>Add a Tree</legend>
+    {{> afQuickField name='lat'}}
+    {{> afQuickField name='lng'}}
+    {{> afQuickField name='species'}}
+    {{> afQuickField name='diameter'}}
+    {{> afQuickField name='height'}}
+    {{> afQuickField name='notes' rows=2}}
+  </fieldset>
+  <button type="submit" class="btn btn-primary">Add</button>
+  {{/autoForm}}
+</template>

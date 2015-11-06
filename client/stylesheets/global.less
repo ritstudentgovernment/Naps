@@ -1,0 +1,53 @@
+@import "sites/variables.import.less";
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+body {
+  background: @main-background !important;
+}
+
+::selection {
+  background: lighten(@brand-primary, 30%); /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: lighten(@brand-primary, 30%); /* Gecko Browsers */
+}
+
+.btn-group {
+  padding-left: 20px;
+}
+
+.modal-link {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  color: @brand-primary;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.orange {
+  color: @brand-primary !important;
+}
+
+.p {
+  display: block;
+}
+
+.page {
+  @media (max-width: @screen-xs-max) { margin: 10px inherit; padding:10px; }
+  @media (min-width: @screen-sm-min) { margin: 10px inherit; padding:10px;}
+  @media (min-width: @screen-md-min) { margin: 20px inherit; padding:20px;}
+  @media (min-width: @screen-lg-min) { margin: 20px inherit; padding:20px;} 
+}

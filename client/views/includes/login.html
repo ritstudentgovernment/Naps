@@ -1,0 +1,34 @@
+<template name="login">
+  <div class="modal fade"
+       id="loginModal"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="myModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-login">
+      <div class="modal-content" style="border: none;">
+        <form class="main">
+          {{#if session 'loginMsg'}}
+            <input type="text"
+                   class="form-control input-lg text-center"
+                   value="{{session 'loginMsg'}}"
+                   disabled
+                   style="cursor: default;">
+          {{/if}}
+          <input id="username"
+                 type="text"
+                 class="form-control input-lg"
+                 placeholder="RIT Username">
+          <input id="password"
+                 type="password"
+                 class="form-control input-lg"
+                 placeholder="Password">
+          <input id="login-button"
+                 type="submit"
+                 class="input-lg btn-lg full-width form-control btn-primary"
+                 value="Login">
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

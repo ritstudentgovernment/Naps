@@ -1,0 +1,84 @@
+/*! =======================================================
+                      VERSION  4.3.0              
+========================================================= */
+/*! =========================================================
+ * bootstrap-slider.js
+ *
+ * Maintainers: 
+ *      Kyle Kemp 
+ *          - Twitter: @seiyria
+ *          - Github:  seiyria
+ *      Rohit Kalkur
+ *          - Twitter: @Rovolutionary
+ *          - Github:  rovolution
+ *
+ * =========================================================
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
+.slider {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.slider.slider-horizontal {
+  width: 210px;
+  height: 40px;
+  margin-top: 25px;
+  margin-left: 40px;
+}
+.slider.slider-horizontal .slider-track {
+  height: 40px;
+  width: 100%;
+  left: 0;
+}
+.slider.slider-horizontal .slider-selection {
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+.slider.slider-horizontal .slider-handle {
+  margin-left: -20px;
+}
+
+
+.slider input {
+  display: none;
+}
+.slider .tooltip.top {
+  margin-top: -32px;
+}
+.slider .tooltip-inner {
+  white-space: nowrap;
+}
+.slider .hide {
+  display: none;
+}
+.slider-track {
+  position: absolute;
+  cursor: pointer;
+  background-color: #DDD;
+  border-radius: 4px;
+}
+.slider-selection {
+  position: absolute;
+  background-color: #CCC;
+  border-radius: 4px;
+}
+.slider-handle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #BBB;
+  border: 0px solid transparent;
+}

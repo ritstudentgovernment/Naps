@@ -1,0 +1,16 @@
+<template name="datafeed">
+  {{> aboutDataFeeds}}
+  {{#each jobs}}
+    {{> job}}
+  {{/each}}
+</template>
+
+<template name="aboutDataFeeds">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">What are data feeds?</h3></div>
+    <div class="panel-body">
+      <p>Data feeds are used to load new courses, sections, and instructors into the system. <br> Data in the system will need to be refreshed for each term.</p>
+      {{> quickForm schema=schema id="newDataFeedJob" type="method" meteormethod="startDataFeed"}}
+    </div>
+  </div>      
+</template>

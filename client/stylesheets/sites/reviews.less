@@ -1,0 +1,39 @@
+@import "variables.import.less";
+
+.comment-hidden {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -9px;
+  margin-right: 5px;
+}
+
+.review {
+  display: table;
+  overflow: auto;
+  width: 100%;
+  .glyphicon {
+    font-size: 1.3em;
+    color: lighten(@gray-light, 35%);
+  }
+}
+
+.review-col {
+  float: none;
+  display: table-cell;
+  vertical-align: top;
+}
+
+.review-report {
+  text-align: justify;
+}
+
+.review:not(:last-child) {
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.panel-body > .panel-body {
+  margin-bottom: 0;
+}
