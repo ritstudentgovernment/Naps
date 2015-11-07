@@ -60,7 +60,6 @@ Template.mapMain.onCreated(function() {
       added: function(document) {
         // Create a marker for this document
         var marker = new google.maps.Marker({
-          draggable: true,
           animation: google.maps.Animation.DROP,
           position: new google.maps.LatLng(document.lat, document.lng),
           map: map.instance,

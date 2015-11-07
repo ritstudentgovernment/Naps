@@ -3,7 +3,7 @@
     <div class="col-sm-3">
       <div class="list-group">
         {{#each pages}}
-          <a class="list-group-item {{ isActiveRoute route }}" 
+          <a class="list-group-item {{ isActiveRoute route }}"
            href="{{ pathFor route }}">{{ label }}</a>
         {{/each}}
       </div>

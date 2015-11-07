@@ -23,18 +23,14 @@
               About
             </a>
           </li>
+          {{#if currentUser }}
           <li class="{{ isActiveRoute 'evaluationsShow' }}">
             <a id="addTree" href="">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>
           </li>
-          <li class="{{ isActiveRoute 'search' }}">
-            <a class="navbar-search" href="{{pathFor 'search'}}">
-              <span class="glyphicon glyphicon-search"></span>
-              Search
-            </a>
-          </li>
+          {{/if}}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {{#if currentUser}}
