@@ -27,7 +27,6 @@ Template.mapMain.helpers({
       return Session.get('selectedTree');
     },
     addingTree: function(){
-      console.log(Session.get('addingTree'));
       return Session.get('addingTree');
     }
 });
@@ -37,13 +36,11 @@ Meteor.startup(function() {
 });
 
 Template.mapMain.onCreated(function() {
-  console.log('Google Maps are loaded!');
 
   GoogleMaps.ready('treeMap', function(map) {
 
     google.maps.event.addListener(map.instance, 'click', function(event) {
       if(Session.get('addingTree')){
-        console.log('click!');
         var payload = {
           lat: event.latLng.lat(),
           lng: event.latLng.lng(),

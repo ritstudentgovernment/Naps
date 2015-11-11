@@ -4,9 +4,9 @@ Meteor.startup(function() {
     var adminUser = Meteor.users.insert({
       username: "sgweb",
       identity: {
-        name: "Peter Mikitsh",
-        firstName: "Peter",
-        lastName: "Mikitsh"
+        name: "James Reilly",
+        firstName: "James",
+        lastName: "Reilly",
       },
       evaluationCounts: [],
       sectionIds: []

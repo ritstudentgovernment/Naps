@@ -33,11 +33,25 @@ Trees.attachSchema( new SimpleSchema({
     type: String,
     optional: true,
     defaultValue: "No Notes."
+  },
+  picture:{
+    type: String,
+    optional: true
   }
 }));
 
 Trees.allow({
-  insert: function () { return true; },
-  update: function () { return true; },
-  remove: function () { return true; }
+  insert: function () { return Meteor.user(); },
+  update: function () { Roles.userIsInRole(Meteor.user(), ['admin']); },
+  remove: function () { Roles.userIsInRole(Meteor.user(), ['admin']); }
+});
+
+TreesFS = new FS.Collection('treesFS', {
+  stores: [new FS.Store.FileSystem('treesFS')]
+});
+
+TreesFS.allow({
+  insert:   function (userId, file) { return true; },
+  update:   function (userId, file) { return true; },
+  download: function () {return true; }
 });

@@ -1,11 +1,12 @@
+
 var hooksObject = {
 
   // Called when any submit operation succeeds
   onSuccess: function(formType, result) {
-    throwError("Success!");
+    throwError("Tree Added!");
     Session.set('addingTree',false);
-    Session.set('coord', undefined);
-
+    var tree = Trees.findOne(result);
+    Session.set('selectedTree', tree);
   },
 
   // Called when any submit operation fails

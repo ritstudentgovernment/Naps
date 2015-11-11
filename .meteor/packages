@@ -27,3 +27,7 @@ aldeed:autoform
 datariot:ganalytics
 spiderable
 dburles:google-maps
+cfs:standard-packages
+cfs:filesystem
+cfs:autoform
+mirrorcell:geolocation-plus

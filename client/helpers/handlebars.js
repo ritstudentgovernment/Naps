@@ -45,6 +45,11 @@ Handlebars.registerHelper('eq', function (a, b) {
   return a == b;
 });
 
+Handlebars.registerHelper('treeURL', function (id) {
+  var img = TreesFS.findOne(id);
+  return img ? img.url() : "/tree.png";
+});
+
 function getEvaluationObject () {
   var singleton = Singleton.findOne();
   return _.find(Meteor.user().evaluationCounts,

@@ -3,7 +3,7 @@ Meteor.publish('markers', function (courseParentNum) {
 });
 
 Meteor.publish('trees', function (courseParentNum) {
-  return Trees.find();
+  return [Trees.find(), TreesFS.find()];
 });
 
 Meteor.publish('course', function (courseParentNum) {
