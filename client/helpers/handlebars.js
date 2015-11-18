@@ -47,7 +47,7 @@ Handlebars.registerHelper('eq', function (a, b) {
 
 Handlebars.registerHelper('treeURL', function (id) {
   var img = TreesFS.findOne(id);
-  return img ? img.url() : "/tree.png";
+  return img ? img.url() : "";
 });
 
 function getEvaluationObject () {

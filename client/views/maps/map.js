@@ -1,6 +1,10 @@
 Template.mapMain.events({
   'click #closeSide':function(){
+    //Close navbars
     $('#sidebar-wrapper').removeClass('toggled');
+    $('#bottombar-wrapper').removeClass('toggle-bottom');
+    $('#map').removeClass('map-toggle');
+    //Remove session variables
     Session.set('addingTree', undefined);
     Session.set('selectedTree', undefined);
   }
@@ -39,6 +43,43 @@ Template.mapMain.onCreated(function() {
 
   GoogleMaps.ready('treeMap', function(map) {
 
+    var allowedBounds = new google.maps.LatLngBounds(
+     new google.maps.LatLng(43.076, -77.691),
+     new google.maps.LatLng(43.094, -77.651));
+
+    google.maps.event.addListener(map.instance, 'dragend', function() {
+      console.log(map.instance.getCenter());
+
+     if (allowedBounds.contains(map.instance.getCenter())) return;
+
+     // Out of bounds - Move the map back within the bounds
+
+     var c = map.instance.getCenter(),
+         x = c.lng(),
+         y = c.lat(),
+         maxX = allowedBounds.getNorthEast().lng(),
+         maxY = allowedBounds.getNorthEast().lat(),
+         minX = allowedBounds.getSouthWest().lng(),
+         minY = allowedBounds.getSouthWest().lat();
+
+     if (x < minX) x = minX;
+     if (x > maxX) x = maxX;
+     if (y < minY) y = minY;
+     if (y > maxY) y = maxY;
+
+     map.instance.setCenter(new google.maps.LatLng(y, x));
+
+   });
+
+
+   // Limit the zoom level
+   google.maps.event.addListener(map.instance, 'zoom_changed', function() {
+     if (map.instance.getZoom() < 15) map.instance.setZoom(15);
+   });
+
+
+
+
     google.maps.event.addListener(map.instance, 'click', function(event) {
       if(Session.get('addingTree')){
         var payload = {
@@ -61,8 +102,7 @@ Template.mapMain.onCreated(function() {
           position: new google.maps.LatLng(document.lat, document.lng),
           map: map.instance,
 
-          // We store the document _id on the marker in order
-          // to update the document within the 'dragend' event below.
+          //Store the document id
           id: document._id
         });
         var infowindow = new google.maps.InfoWindow({
@@ -71,6 +111,8 @@ Template.mapMain.onCreated(function() {
         google.maps.event.addListener(marker, 'click', function() {
           Session.set('selectedTree', document);
           $('#sidebar-wrapper').addClass('toggled');
+          $('#bottombar-wrapper').addClass('toggle-bottom');
+          $('#map').addClass('map-toggle');
         });
 
         // Store this marker instance within the markers object.

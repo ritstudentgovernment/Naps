@@ -24,8 +24,15 @@
             </a>
           </li>
           {{#if currentUser }}
-          <li class="{{ isActiveRoute 'evaluationsShow' }}">
+
+          <li class="hidden-xs">
             <a id="addTree" href="">
+              <span class="glyphicon glyphicon-plus"></span>
+              Add an Entry
+            </a>
+          </li>
+          <li class="{{ isActiveRoute 'addTree' }} visible-xs">
+            <a id="addTree" href="{{ pathFor 'addTree'}}">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>
@@ -58,12 +65,6 @@
                     </a>
                   </li>
                 {{/if}}
-                <li>
-                  <a href="{{pathFor 'evaluationsShow'}}">
-                    <span class="glyphicon glyphicon-book"></span>
-                    My Courses
-                  </a>
-                </li>
                 <li>
                   <a id="logout-button"
                      href="#">

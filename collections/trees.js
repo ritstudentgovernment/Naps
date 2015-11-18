@@ -15,24 +15,21 @@ Trees.attachSchema( new SimpleSchema({
     label: "Diameter",
     type: String,
     optional: true,
-    defaultValue: "Not Listed."
   },
   height: {
     label: "Estimated Height",
     type: String,
     optional: true,
-    defaultValue: "Not Listed."
   },
   species: {
     label: "Species",
     type: String,
-    optional: false
+    optional: false,
   },
   notes: {
     label: "Notes",
     type: String,
     optional: true,
-    defaultValue: "No Notes."
   },
   picture:{
     type: String,
