@@ -1,6 +1,9 @@
+previewMarker = [];
+
 Template.mapMain.events({
   'click #closeSide':function(){
     //Close navbars
+    $('#closePanel').removeClass('toggled');
     $('#sidebar-wrapper').removeClass('toggled');
     $('#bottombar-wrapper').removeClass('toggle-bottom');
     $('#map').removeClass('map-toggle');
@@ -36,7 +39,7 @@ Template.mapMain.helpers({
 });
 
 Meteor.startup(function() {
-   GoogleMaps.load();
+  GoogleMaps.load();
 });
 
 Template.mapMain.onCreated(function() {
@@ -44,53 +47,71 @@ Template.mapMain.onCreated(function() {
   GoogleMaps.ready('treeMap', function(map) {
 
     var allowedBounds = new google.maps.LatLngBounds(
-     new google.maps.LatLng(43.076, -77.691),
-     new google.maps.LatLng(43.094, -77.651));
+      new google.maps.LatLng(43.076, -77.691),
+      new google.maps.LatLng(43.094, -77.651));
 
+    //Check for dragging map outside campus
     google.maps.event.addListener(map.instance, 'dragend', function() {
-      console.log(map.instance.getCenter());
 
-     if (allowedBounds.contains(map.instance.getCenter())) return;
+      if (allowedBounds.contains(map.instance.getCenter())) return;
 
      // Out of bounds - Move the map back within the bounds
+      var c = map.instance.getCenter(),
+        x = c.lng(),
+        y = c.lat(),
+        maxX = allowedBounds.getNorthEast().lng(),
+        maxY = allowedBounds.getNorthEast().lat(),
+        minX = allowedBounds.getSouthWest().lng(),
+        minY = allowedBounds.getSouthWest().lat();
 
-     var c = map.instance.getCenter(),
-         x = c.lng(),
-         y = c.lat(),
-         maxX = allowedBounds.getNorthEast().lng(),
-         maxY = allowedBounds.getNorthEast().lat(),
-         minX = allowedBounds.getSouthWest().lng(),
-         minY = allowedBounds.getSouthWest().lat();
-
-     if (x < minX) x = minX;
-     if (x > maxX) x = maxX;
-     if (y < minY) y = minY;
-     if (y > maxY) y = maxY;
-
-     map.instance.setCenter(new google.maps.LatLng(y, x));
-
-   });
+      if (x < minX) x = minX;
+      if (x > maxX) x = maxX;
+      if (y < minY) y = minY;
+      if (y > maxY) y = maxY;
+      map.instance.setCenter(new google.maps.LatLng(y, x));
+  });
 
 
    // Limit the zoom level
-   google.maps.event.addListener(map.instance, 'zoom_changed', function() {
-     if (map.instance.getZoom() < 15) map.instance.setZoom(15);
-   });
+  google.maps.event.addListener(map.instance, 'zoom_changed', function() {
+    if (map.instance.getZoom() < 15) map.instance.setZoom(15);
+  });
 
 
+  google.maps.event.addListener(map.instance, 'click', function(event) {
+    if(Session.get('addingTree')){
+      $('input[name=lat]').val(event.latLng.lat());
+      $('input[name=lng]').val(event.latLng.lng());
 
-
-    google.maps.event.addListener(map.instance, 'click', function(event) {
-      if(Session.get('addingTree')){
-        var payload = {
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng(),
-        }
-        $('input[name=lat]').val(event.latLng.lat());
-        $('input[name=lng]').val(event.latLng.lng());
+      if(previewMarker[0]){
+        previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+      }else{
+        var marker = new google.maps.Marker({
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: event.latLng,
+          map: map.instance
+        });
+        google.maps.event.addListener(marker, 'dragend', function(event){
+          $('input[name=lat]').val(event.latLng.lat());
+          $('input[name=lng]').val(event.latLng.lng());
+        });
+        previewMarker[0] = marker;
       }
-    });
 
+
+    }
+  });
+
+
+
+  var image = {
+    url: '/treemarker.png',
+    size: new google.maps.Size(2000, 3000),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 35)
+  };
 
     // The code shown below goes here
     var markers = {};
@@ -101,6 +122,7 @@ Template.mapMain.onCreated(function() {
           animation: google.maps.Animation.DROP,
           position: new google.maps.LatLng(document.lat, document.lng),
           map: map.instance,
+          icon: image,
 
           //Store the document id
           id: document._id
@@ -109,8 +131,12 @@ Template.mapMain.onCreated(function() {
           content: document.contentString
         });
         google.maps.event.addListener(marker, 'click', function() {
+          Session.set('addingTree', undefined);
+          //Set the session variable with the selected tree
           Session.set('selectedTree', document);
+          //Get the number of tree of this type on campus
           $('#sidebar-wrapper').addClass('toggled');
+          $('#closePanel').addClass('toggled');
           $('#bottombar-wrapper').addClass('toggle-bottom');
           $('#map').addClass('map-toggle');
         });

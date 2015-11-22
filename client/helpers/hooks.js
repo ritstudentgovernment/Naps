@@ -3,10 +3,18 @@ var hooksObject = {
 
   // Called when any submit operation succeeds
   onSuccess: function(formType, result) {
+    //Remove Preview Marker
+    previewMarker[0].setMap(null);
+    google.maps.event.clearInstanceListeners(previewMarker[0]);
+    delete previewMarker[0];
+    //Throw success message
     throwError("Tree Added!");
+    //Set the adding tree session to false
     Session.set('addingTree',false);
+    //Set the selected tree to the added tree
     var tree = Trees.findOne(result);
     Session.set('selectedTree', tree);
+    //if on mobile add page go back to map
     if(routeUtils.testRoutes('addTree')){
         Router.go('/');
     }

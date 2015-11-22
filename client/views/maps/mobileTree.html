@@ -1,6 +1,8 @@
 <template name="mobileTree">
-    <h2>{{species}}</h2>
-    Latitude: {{lat}}<br>
-    Longitude: {{lng}}<br>
-    Diameter: {{diameter}}
+    <div class="side-header">
+      <h3 class="no-margin">{{species}}</h3>
+      <p class="no-margin">{{treeCount species}} tree(s) of this type</p>
+      <p class="no-margin">Latitude: {{lat}}</p>
+      <p class="no-margin">Longitude: {{lng}}</p>
+    </div>
 </template>

@@ -1,9 +1,10 @@
 <template name="mapMain">
 
   <!-- Sidebar -->
-  <div id="sidebar-wrapper" class="shadow hidden-xs">
-    <div class="side-nav">
-      <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+  <div id="closePanel" class="close-button shadow hidden-xs">
+    <a id="closeSide" href=""><span class="glyphicon glyphicon-chevron-left slide" ></span></a>
+  </div>
+  <div id="sidebar-wrapper" class="hidden-xs shadow">
       {{#if addingTree}}
         {{> addTree}}
       {{else}}
@@ -13,19 +14,18 @@
           {{/with}}
         {{/if}}
       {{/if}}
-    </div>
   </div>
   <div id="map" class="map-container">
       {{> googleMap name="treeMap" options=exampleMapOptions}}
   </div>
   <div id="bottombar-wrapper" class="visible-xs">
       {{#if selectedTree}}
-      <div class="container">
-          <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
-            {{#with selectedTree}}
-              {{> mobileTree}}
-            {{/with}}
-      </div>
+
+        <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+          {{#with selectedTree}}
+            {{> mobileTree}}
+          {{/with}}
+
       {{/if}}
   </div>
 </template>
