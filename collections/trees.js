@@ -15,11 +15,21 @@ Trees.attachSchema( new SimpleSchema({
     label: "Diameter",
     type: String,
     optional: true,
+    autoValue: function(){
+      if(!this.isSet){
+        return 'None Listed'
+      }
+    }
   },
   height: {
     label: "Estimated Height",
     type: String,
     optional: true,
+    autoValue: function(){
+      if(!this.isSet){
+        return 'None Listed'
+      }
+    }
   },
   species: {
     label: "Species",
@@ -30,6 +40,11 @@ Trees.attachSchema( new SimpleSchema({
     label: "Notes",
     type: String,
     optional: true,
+    autoValue: function(){
+      if(!this.isSet){
+        return 'None Listed'
+      }
+    }
   },
   picture:{
     type: String,
@@ -39,8 +54,8 @@ Trees.attachSchema( new SimpleSchema({
 
 Trees.allow({
   insert: function () { return Meteor.user(); },
-  update: function () { Roles.userIsInRole(Meteor.user(), ['admin']); },
-  remove: function () { Roles.userIsInRole(Meteor.user(), ['admin']); }
+  update: function (userId) { return Roles.userIsInRole(userId, ['admin']); },
+  remove: function (userId) { return Roles.userIsInRole(userId, ['admin']); },
 });
 
 TreesFS = new FS.Collection('treesFS', {

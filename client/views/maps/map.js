@@ -103,8 +103,6 @@ Template.mapMain.onCreated(function() {
     }
   });
 
-
-
   var image = {
     url: '/treemarker.png',
     size: new google.maps.Size(2000, 3000),
@@ -113,51 +111,50 @@ Template.mapMain.onCreated(function() {
     scaledSize: new google.maps.Size(25, 35)
   };
 
-    // The code shown below goes here
-    var markers = {};
-    Trees.find().observe({
-      added: function(document) {
-        // Create a marker for this document
-        var marker = new google.maps.Marker({
-          animation: google.maps.Animation.DROP,
-          position: new google.maps.LatLng(document.lat, document.lng),
-          map: map.instance,
-          icon: image,
+  // The code shown below goes here
+  var markers = {};
+  Trees.find().observe({
+    added: function(document) {
+      // Create a marker for this document
+      var marker = new google.maps.Marker({
+        animation: google.maps.Animation.DROP,
+        position: new google.maps.LatLng(document.lat, document.lng),
+        map: map.instance,
+        icon: image,
+        //Store the document id
+        id: document._id
+      });
+      var infowindow = new google.maps.InfoWindow({
+        content: document.contentString
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        Session.set('addingTree', undefined);
+        //Set the session variable with the selected tree
+        Session.set('selectedTree', document);
+        //Get the number of tree of this type on campus
+        $('#sidebar-wrapper').addClass('toggled');
+        $('#closePanel').addClass('toggled');
+        $('#bottombar-wrapper').addClass('toggle-bottom');
+        $('#map').addClass('map-toggle');
+      });
 
-          //Store the document id
-          id: document._id
-        });
-        var infowindow = new google.maps.InfoWindow({
-          content: document.contentString
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-          Session.set('addingTree', undefined);
-          //Set the session variable with the selected tree
-          Session.set('selectedTree', document);
-          //Get the number of tree of this type on campus
-          $('#sidebar-wrapper').addClass('toggled');
-          $('#closePanel').addClass('toggled');
-          $('#bottombar-wrapper').addClass('toggle-bottom');
-          $('#map').addClass('map-toggle');
-        });
+      // Store this marker instance within the markers object.
+      markers[document._id] = marker;
+    },
+    changed: function(newDocument, oldDocument) {
+      markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+    },
+    removed: function(oldDocument) {
+      // Remove the marker from the map
+      markers[oldDocument._id].setMap(null);
 
-        // Store this marker instance within the markers object.
-        markers[document._id] = marker;
-      },
-      changed: function(newDocument, oldDocument) {
-        markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
-      },
-      removed: function(oldDocument) {
-        // Remove the marker from the map
-        markers[oldDocument._id].setMap(null);
+      // Clear the event listener
+      google.maps.event.clearInstanceListeners(
+        markers[oldDocument._id]);
 
-        // Clear the event listener
-        google.maps.event.clearInstanceListeners(
-          markers[oldDocument._id]);
-
-        // Remove the reference to this marker instance
-        delete markers[oldDocument._id];
-      }
-    });
+      // Remove the reference to this marker instance
+      delete markers[oldDocument._id];
+    }
+  });
   });
 });

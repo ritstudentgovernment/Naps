@@ -16,5 +16,9 @@
         <b>Est. Height: </b> {{height}}<br>
         <br><b>Notes</b><br>
         {{notes}}
+        {{#if isInRole 'admin'}}
+        <button id="remove" treeId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Tree</button>
+        {{/if}}
     </div>
+
 </template>

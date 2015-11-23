@@ -1,15 +1,5 @@
 <template name="admin">
   <div class="page container">
-    <div class="col-sm-3">
-      <div class="list-group">
-        {{#each pages}}
-          <a class="list-group-item {{ isActiveRoute route }}"
-           href="{{ pathFor route }}">{{ label }}</a>
-        {{/each}}
-      </div>
-    </div>
-    <div class="col-sm-9">
-      {{> Template.dynamic template=currentRouteName }}
-    </div>
+    
   </div>
 </template>
