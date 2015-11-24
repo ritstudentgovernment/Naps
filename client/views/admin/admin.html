@@ -1,5 +1,73 @@
 <template name="admin">
-  <div class="page container">
-    
+
+  <div class="application-content container-fluid">
+    <div class="row-fluid">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+
+       <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#users" role="tab" data-toggle="tab">Users</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          {{> users}}
+        </div>
+      </div>
+    </div>
   </div>
+</template>
+
+<template name="users">
+  <div class="tab-pane active" id="users">
+    <div class="col-sm-4">
+      <h2>Admins</h2>
+      <p>Administrators can manage user roles and petitions.</p>
+      {{> userList users=admins role="admin" }}
+    </div>
+  </div>
+</template>
+
+<template name="userList">
+  {{#each users}}
+    <form>
+      <div class="input-group">
+        <input name="action"
+               value="remove"
+               type="hidden">
+        <input name="role"
+               value="{{../role}}"
+               type="hidden">
+        <input name="username"
+               value="{{profile.name}} - {{username}}"
+               type="text"
+               class="form-control"
+               disabled>
+        <span class="input-group-btn">
+          <button class="btn btn-primary"
+                  type="submit">&times;
+                  </button>
+        </span>
+      </div>
+    </form>
+  {{/each}}
+  <form>
+    <div class="input-group">
+      <input name="action"
+             value="add"
+             type="hidden">
+      <input name="role"
+             value="{{role}}"
+             type="hidden">
+      <input name="username"
+             value=""
+             type="text"
+             placeholder="abc1234"
+             class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-primary"
+                type="submit">+
+                </button>
+      </span>
+    </div>
+  </form>
 </template>

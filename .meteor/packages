@@ -31,3 +31,4 @@ cfs:standard-packages
 cfs:filesystem
 cfs:autoform
 mirrorcell:geolocation-plus
+harrison:papa-parse

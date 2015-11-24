@@ -1,0 +1,47 @@
+<template name="uploadCSV">
+  <div class="container">
+    <div class="upload-container shadow">
+      <div class="side-header" style="text-align:center;">
+        <h1 class="no-margin">Upload CSV</h1>
+        <p>Headers for CSV must be Species, Latitude, Longitude, Diameter, Height, Notes.</p>
+      </div>
+      <div class="upload-padding" style="">
+          <input id="csvFile" type="file" style="margin:auto;">
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+              <button id="upload" class="btn btn-primary" style="width:100%; margin-top:10px;">Upload</button>
+            </div>
+          </div>
+        {{#if session 'csvResults'}}
+        <hr>
+        <h2>Uploaded Data</h2>
+        <table class="table table-bordered table-striped">
+           <thead>
+               <tr>
+                   <td>Species</td>
+                   <td>Latitude</td>
+                   <td>Latitude</td>
+                   <td>Diameter</td>
+                   <td>Height</td>
+                   <td>Notes</td>
+               </tr>
+           </thead>
+           <tbody>
+           {{#each session 'csvResults'}}
+               <tr>
+                   <td>{{Species}}</td>
+                   <td>{{Latitude}}</td>
+                   <td>{{Longitude}}</td>
+                   <td>{{Diameter}}</td>
+                   <td>{{Height}}</td>
+                   <td>{{Notes}}</td>
+               </tr>
+           {{/each}}
+           </tbody>
+       </table>
+       <button id="submitTrees" class="btn btn-primary">Submit</button>
+     {{/if}}
+     </div>
+   </div>
+ </div>
+</template>

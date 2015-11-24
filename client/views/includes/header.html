@@ -31,12 +31,20 @@
               Add an Entry
             </a>
           </li>
+          <li class="{{ isActiveRoute 'uploadCSV' }}">
+            <a id="addTree" href="{{ pathFor 'uploadCSV'}}">
+              <span class="glyphicon glyphicon-upload"></span>
+              Upload CSV
+            </a>
+          </li>
           <li class="{{ isActiveRoute 'addTree' }} visible-xs">
             <a id="addTree" href="{{ pathFor 'addTree'}}">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>
           </li>
+
+
           {{/if}}
         </ul>
         <ul class="nav navbar-nav navbar-right">
