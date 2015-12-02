@@ -67,3 +67,33 @@ TreesFS.allow({
   update:   function (userId, file) { return true; },
   download: function () {return true; }
 });
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    insertCSVData: function(parses) {
+      //Precheck data for entries without required data
+      //DOn't insert in one is found
+      for(var i = 0; i < parses.length; i++){
+        var tree = parses[i];
+        if(!(tree.Species && tree.Latitude && tree.Longitude)){
+          //Return true for the error and with error message
+          throw new Meteor.Error( 500, 'Trees not added. All Entries must have a Species, Latitude, Longitude attribute.' );
+          return;
+        }
+      }
+
+      for(var i = 0; i < parses.length; i++){
+        var tree = parses[i];
+        var payload = {
+          lat: tree.Latitude,
+          lng: tree.Longitude,
+          diameter: tree.Diameter,
+          height: tree.Height,
+          species: tree.Species,
+          notes: tree.Notes
+        }
+        Trees.insert(payload);
+      }
+    }
+  });
+}

@@ -19,10 +19,12 @@
 
 <template name="users">
   <div class="tab-pane active" id="users">
-    <div class="col-sm-4">
-      <h2>Admins</h2>
-      <p>Administrators can manage user roles and petitions.</p>
-      {{> userList users=admins role="admin" }}
+    <div class="tab-container shadow">
+      <div class="col-sm-4">
+        <h2>Admins</h2>
+        <p>Administrators can manage user roles and trees</p>
+        {{> userList users=admins role="admin" }}
+      </div>
     </div>
   </div>
 </template>

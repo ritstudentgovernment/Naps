@@ -15,20 +15,14 @@ Template.uploadCSV.events({
   },
   'click #submitTrees':function(){
     var parses = Session.get('csvResults');
-    for(var i = 0; i < parses.length; i++){
-      var tree = parses[i];
-      var payload = {
-        lat: tree.Latitude,
-        lng: tree.Longitude,
-        diameter: tree.Diameter,
-        height: tree.Height,
-        species: tree.Species,
-        notes: tree.Notes
+    Meteor.call('insertCSVData', parses, function(error){
+      if(error){
+        throwError(error.reason);
+      }else{
+        throwError("Trees Successfuly Added!");
+        Session.set('csvResults', undefined);
       }
-      Trees.insert(payload);
-    }
-    throwError("Trees Added to the Map!");
-    Session.set('csvResults', undefined);
+    });
   }
 
 });
