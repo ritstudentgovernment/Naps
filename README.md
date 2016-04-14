@@ -1,7 +1,7 @@
 About
 =====
 
-Evals is a web application for evaluating courses and instructors at RIT. Evals serves as a reliable source of information to make course enrollment decisions. 
+This is the website that powers trees.rit.edu, the community-created tree map. 
 
 Usage (Local Development)
 =========================
