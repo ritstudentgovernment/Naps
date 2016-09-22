@@ -40,13 +40,18 @@ Naps.attachSchema( new SimpleSchema({
 	picture: {
 		type: String,
 		optional: true
+	},
+	creatorId: {
+		type: String,
+		max: 50,
+		autoValue: function () { return Meteor.userId(); }
 	}
 }));
 
 Naps.allow({
 	insert: function () { return Meteor.user(); },
   	update: function (userId) { return Roles.userIsInRole(userId, ['admin']); },
-  	remove: function (userId) { return Roles.userIsInRole(userId, ['admin']); },
+  	remove: function (userId, doc) { return userId == doc.creatorId || Roles.userIsInRole(userId, ['admin']); },
 });
 
 NapsFS = new FS.Collection('napsFS', {

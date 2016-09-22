@@ -104,7 +104,7 @@ Template.mapMain.onCreated(function() {
   });
 
   var image = {
-    url: '/treemarker.png',
+    url: '/napmarker.png',
     size: new google.maps.Size(2000, 3000),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(17, 34),

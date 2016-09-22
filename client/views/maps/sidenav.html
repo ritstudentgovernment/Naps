@@ -16,8 +16,8 @@
         <b>Quiet Level: </b> {{qlvl}}<br>
         <br><b>Notes</b><br>
         {{notes}}
-        {{#if isInRole 'admin'}}
-        <button id="remove" treeId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Nap Spot</button>
+        {{#if ownsNap creatorId}}
+        <button id="remove" napId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Nap Spot</button>
         {{/if}}
     </div>
 
