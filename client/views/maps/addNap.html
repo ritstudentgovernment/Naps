@@ -3,8 +3,8 @@
     {{#autoForm collection="Naps" id="napForm" type="insert"}}
     <fieldset>
       <legend>Add a Nap Spot</legend>
-      {{> afQuickField name='latitude'}}
-      {{> afQuickField name='longitude'}}
+      {{> afQuickField name='lat'}}
+      {{> afQuickField name='lng'}}
       <a id="geoLoc" class="btn btn-primary" style="width:100%;">Get Current Location</a>
       {{> afQuickField name="picture" type="cfs-file" collection="napsFS"}}
       {{> afQuickField name='spot_type' placeholder='Sofa'}}

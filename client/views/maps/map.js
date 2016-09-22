@@ -80,8 +80,8 @@ Template.mapMain.onCreated(function() {
 
   google.maps.event.addListener(map.instance, 'click', function(event) {
     if(Session.get('addingNap')){
-      $('input[name=latitude]').val(event.latLng.lat());
-      $('input[name=longitude]').val(event.latLng.lng());
+      $('input[name=lat]').val(event.latLng.lat());
+      $('input[name=lng]').val(event.latLng.lng());
 
       if(previewMarker[0]){
         previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -93,8 +93,8 @@ Template.mapMain.onCreated(function() {
           map: map.instance
         });
         google.maps.event.addListener(marker, 'dragend', function(event){
-          $('input[name=latitude]').val(event.latLng.lat());
-          $('input[name=longitude]').val(event.latLng.lng());
+          $('input[name=lat]').val(event.latLng.lat());
+          $('input[name=lng]').val(event.latLng.lng());
         });
         previewMarker[0] = marker;
       }

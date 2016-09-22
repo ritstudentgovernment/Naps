@@ -2,12 +2,12 @@ Naps = new Mongo.Collection('naps');
 
 Naps.attachSchema( new SimpleSchema({
 
-	latitude: {
+	lat: {
 		label: "Latitude",
 		type: String,
 		optional: false
 	},
-	longitude: {
+	lng: {
 		label: "Longitude",
 		type: String,
 		optional: false
@@ -81,8 +81,8 @@ if (Meteor.isServer) {
 
       			var payload = {
 
-      				latitude: napspot.Latitude,
-      				longitude: napspot.Longitude,
+      				lat: napspot.Latitude,
+      				lng: napspot.Longitude,
       				size: napspot.Size,
       				spot_type: napspot.SpotType,
       				qlvl: napspot.QuietLevel,
