@@ -3,7 +3,7 @@
     <div class="upload-container shadow">
       <div class="side-header" style="text-align:center;">
         <h1 class="no-margin">Upload CSV</h1>
-        <p>Headers for CSV must be Species, Latitude, Longitude, Diameter, Height, Notes.</p>
+        <p>Headers for CSV must be SpotType, Latitude, Longitude, Size, QuietLevel, Notes.</p>
       </div>
       <div class="upload-padding" style="">
           <input id="csvFile" type="file" style="margin:auto;">
@@ -18,28 +18,29 @@
         <table class="table table-bordered table-striped">
            <thead>
                <tr>
-                   <td>Species</td>
+                   <td>SpotType</td>
                    <td>Latitude</td>
-                   <td>Latitude</td>
-                   <td>Diameter</td>
-                   <td>Height</td>
+                   <td>Longitude</td>
+                   <td>Size</td>
+                   <td>QuietLevel</td>
                    <td>Notes</td>
                </tr>
            </thead>
            <tbody>
            {{#each session 'csvResults'}}
                <tr>
-                   <td>{{Species}}</td>
+                   <td>{{SpotType}}</td>
                    <td>{{Latitude}}</td>
                    <td>{{Longitude}}</td>
-                   <td>{{Diameter}}</td>
-                   <td>{{Height}}</td>
+                   <td>{{Size}}</td>
+                   <td>{{QuietLevel}}</td>
                    <td>{{Notes}}</td>
+                   <td style="display: none; ">{{currentUser}}</td>
                </tr>
            {{/each}}
            </tbody>
        </table>
-       <button id="submitTrees" class="btn btn-primary">Submit</button>
+       <button id="submitNaps" class="btn btn-primary">Submit</button>
      {{/if}}
      </div>
    </div>

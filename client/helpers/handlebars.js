@@ -67,19 +67,3 @@ Handlebars.registerHelper('moreReviewsNeeded', function () {
     return true;
   }
 });
-
-
-Handlebars.registerHelper('ownsNap', function(creatorId){
-
-  if(Meteor.userId() === creatorId || Roles.userIsInRole(Meteor.userId(), ['admin'])){
-
-    return true;
-
-  }
-  else{
-
-    return false;
-
-  }
-
-});

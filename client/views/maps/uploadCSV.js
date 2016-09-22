@@ -13,7 +13,7 @@ Template.uploadCSV.events({
     }
 
   },
-  'click #submitTrees':function(){
+  'click #submitNaps':function(){
     var parses = Session.get('csvResults');
     Meteor.call('insertCSVData', parses, function(error){
       if(error){

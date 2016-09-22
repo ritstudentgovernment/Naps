@@ -1,7 +1,22 @@
 Template.sidenav.helpers({
   'napCount':function(s){
     return Naps.find({spot_type:s}).count();
+  },
+  'ownsNap':function(creatorId){
+
+    if(Meteor.userId() === creatorId || Roles.userIsInRole(Meteor.userId(), ['admin'])){
+
+      return true;
+
+    }
+    else{
+
+      return false;
+
+    }
+
   }
+
 })
 
 Template.sidenav.events({
