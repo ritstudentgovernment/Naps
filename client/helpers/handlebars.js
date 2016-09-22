@@ -45,8 +45,8 @@ Handlebars.registerHelper('eq', function (a, b) {
   return a == b;
 });
 
-Handlebars.registerHelper('treeURL', function (id) {
-  var img = TreesFS.findOne(id);
+Handlebars.registerHelper('napURL', function (id) {
+  var img = NapsFS.findOne(id);
   return img ? img.url() : "";
 });
 

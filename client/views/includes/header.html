@@ -26,19 +26,19 @@
           {{#if currentUser }}
 
           <li class="hidden-xs">
-            <a id="addTree" href="">
+            <a id="addNap" href="">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>
           </li>
           <li class="{{ isActiveRoute 'uploadCSV' }}">
-            <a id="addTree" href="{{ pathFor 'uploadCSV'}}">
+            <a id="addNap" href="{{ pathFor 'uploadCSV'}}">
               <span class="glyphicon glyphicon-upload"></span>
               Upload CSV
             </a>
           </li>
-          <li class="{{ isActiveRoute 'addTree' }} visible-xs">
-            <a id="addTree" href="{{ pathFor 'addTree'}}">
+          <li class="{{ isActiveRoute 'addNap' }} visible-xs">
+            <a id="addNap" href="{{ pathFor 'addNap'}}">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>

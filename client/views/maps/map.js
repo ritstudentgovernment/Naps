@@ -8,8 +8,8 @@ Template.mapMain.events({
     $('#bottombar-wrapper').removeClass('toggle-bottom');
     $('#map').removeClass('map-toggle');
     //Remove session variables
-    Session.set('addingTree', undefined);
-    Session.set('selectedTree', undefined);
+    Session.set('addingNap', undefined);
+    Session.set('selectedNap', undefined);
   }
 });
 
@@ -30,11 +30,11 @@ Template.mapMain.helpers({
         };
       }
     },
-    selectedTree: function(){
-      return Session.get('selectedTree');
+    selectedNap: function(){
+      return Session.get('selectedNap');
     },
-    addingTree: function(){
-      return Session.get('addingTree');
+    addingNap: function(){
+      return Session.get('addingNap');
     }
 });
 
@@ -44,7 +44,7 @@ Meteor.startup(function() {
 
 Template.mapMain.onCreated(function() {
 
-  GoogleMaps.ready('treeMap', function(map) {
+  GoogleMaps.ready('napMap', function(map) {
 
     var allowedBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(43.076, -77.691),
@@ -79,9 +79,9 @@ Template.mapMain.onCreated(function() {
 
 
   google.maps.event.addListener(map.instance, 'click', function(event) {
-    if(Session.get('addingTree')){
-      $('input[name=lat]').val(event.latLng.lat());
-      $('input[name=lng]').val(event.latLng.lng());
+    if(Session.get('addingNap')){
+      $('input[name=latitude]').val(event.latLng.lat());
+      $('input[name=longitude]').val(event.latLng.lng());
 
       if(previewMarker[0]){
         previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -93,8 +93,8 @@ Template.mapMain.onCreated(function() {
           map: map.instance
         });
         google.maps.event.addListener(marker, 'dragend', function(event){
-          $('input[name=lat]').val(event.latLng.lat());
-          $('input[name=lng]').val(event.latLng.lng());
+          $('input[name=latitude]').val(event.latLng.lat());
+          $('input[name=longitude]').val(event.latLng.lng());
         });
         previewMarker[0] = marker;
       }
@@ -113,7 +113,7 @@ Template.mapMain.onCreated(function() {
 
   // The code shown below goes here
   var markers = {};
-  Trees.find().observe({
+  Naps.find().observe({
     added: function(document) {
       // Create a marker for this document
       var marker = new google.maps.Marker({
@@ -128,10 +128,10 @@ Template.mapMain.onCreated(function() {
         content: document.contentString
       });
       google.maps.event.addListener(marker, 'click', function() {
-        Session.set('addingTree', undefined);
-        //Set the session variable with the selected tree
-        Session.set('selectedTree', document);
-        //Get the number of tree of this type on campus
+        Session.set('addingNap', undefined);
+        //Set the session variable with the selected nap
+        Session.set('selectedNap', document);
+        //Get the number of nap spots of this type on campus
         $('#sidebar-wrapper').addClass('toggled');
         $('#closePanel').addClass('toggled');
         $('#bottombar-wrapper').addClass('toggle-bottom');

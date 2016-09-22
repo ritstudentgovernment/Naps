@@ -5,24 +5,24 @@
     <a id="closeSide" href=""><span class="glyphicon glyphicon-chevron-left slide" ></span></a>
   </div>
   <div id="sidebar-wrapper" class="hidden-xs shadow">
-      {{#if addingTree}}
-        {{> addTree}}
+      {{#if addingNap}}
+        {{> addNap}}
       {{else}}
-        {{#if selectedTree}}
-          {{#with selectedTree}}
+        {{#if selectedNap}}
+          {{#with selectedNap}}
             {{> sidenav}}
           {{/with}}
         {{/if}}
       {{/if}}
   </div>
   <div id="map" class="map-container">
-      {{> googleMap name="treeMap" options=exampleMapOptions}}
+      {{> googleMap name="napMap" options=exampleMapOptions}}
   </div>
   <div id="bottombar-wrapper" class="visible-xs">
-      {{#if selectedTree}}
+      {{#if selectedNap}}
         <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-          {{#with selectedTree}}
-            {{> mobileTree}}
+          {{#with selectedNap}}
+            {{> mobileNap}}
           {{/with}}
       {{/if}}
   </div>

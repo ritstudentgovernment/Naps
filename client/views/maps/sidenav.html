@@ -2,22 +2,22 @@
 
     {{#if picture}}
     <div style="text-align:center;">
-      <img src="{{treeURL picture}}" style="width:100%; max-height:400px; margin-top:-22px;">
+      <img src="{{napURL picture}}" style="width:100%; max-height:400px; margin-top:-22px;">
     </div>
     {{/if}}
     <div class="side-header">
-      <h3 class="no-margin">{{species}}</h3>
-      <p class="no-margin">{{treeCount species}} tree(s) of this type</p>
+      <h3 class="no-margin">{{spot_type}}</h3>
+      <p class="no-margin">{{napCount spot_type}} nap spot(s) of this type</p>
     </div>
     <div class="side-nav">
-        <b>Latitude: </b>{{lat}}<br>
-        <b>Longitude: </b> {{lng}}<br>
-        <b>Diameter: </b> {{diameter}}<br>
-        <b>Est. Height: </b> {{height}}<br>
+        <b>Latitude: </b>{{latitude}}<br>
+        <b>Longitude: </b> {{longitude}}<br>
+        <b>Size: </b> {{size}}<br>
+        <b>Quiet Level: </b> {{qlvl}}<br>
         <br><b>Notes</b><br>
         {{notes}}
         {{#if isInRole 'admin'}}
-        <button id="remove" treeId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Tree</button>
+        <button id="remove" treeId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Nap Spot</button>
         {{/if}}
     </div>
 

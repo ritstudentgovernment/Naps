@@ -1,5 +1,5 @@
-Template.mobileTree.helpers({
-  'treeCount':function(s){
-    return Trees.find({species:s}).count();
+Template.mobileNap.helpers({
+  'napCount':function(s){
+    return Naps.find({spot_type:s}).count();
   }
 })

@@ -7,14 +7,14 @@ var hooksObject = {
     google.maps.event.clearInstanceListeners(previewMarker[0]);
     delete previewMarker[0];
     //Throw success message
-    throwError("Tree Added!");
-    //Set the adding tree session to false
-    Session.set('addingTree',false);
-    //Set the selected tree to the added tree
-    var tree = Trees.findOne(result);
-    Session.set('selectedTree', tree);
+    throwError("Nap Spot Added!");
+    //Set the adding nap session to false
+    Session.set('addingNap',false);
+    //Set the selected nap to the added nap
+    var nap = Naps.findOne(result);
+    Session.set('selectedNap', nap);
     //if on mobile add page go back to map
-    if(routeUtils.testRoutes('addTree')){
+    if(routeUtils.testRoutes('addNap')){
         Router.go('/');
     }
   },
@@ -26,7 +26,7 @@ var hooksObject = {
 };
 
 AutoForm.hooks({
-  treeForm: hooksObject
+  napForm: hooksObject
 });
 
 var routeUtils = {

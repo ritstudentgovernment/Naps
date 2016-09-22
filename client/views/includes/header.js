@@ -5,8 +5,8 @@ Template.header.helpers({
 });
 
 Template.header.events({
-  'click #addTree':function(){
-    Session.set('addingTree', true);
+  'click #addNap':function(){
+    Session.set('addingNap', true);
     $('#sidebar-wrapper').addClass('toggled');
     $('#closePanel').addClass('toggled');
   }

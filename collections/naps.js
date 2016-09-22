@@ -25,7 +25,7 @@ Naps.attachSchema( new SimpleSchema({
 	qlvl: {
 		label: "Quiet Level",
 		type: Number,
-		optional: false; 
+		optional: false 
 	},
 	notes: {
 		label: "Notes",
@@ -81,12 +81,12 @@ if (Meteor.isServer) {
 
       			var payload = {
 
-      				latitude: napspot.Latitude;
-      				longitude: napspot.Longitude;
-      				size: napspot.Size;
-      				spot_type: napspot.SpotType;
-      				qlvl: napspot.QuietLevel;
-      				notes: napspot.Notes;
+      				latitude: napspot.Latitude,
+      				longitude: napspot.Longitude,
+      				size: napspot.Size,
+      				spot_type: napspot.SpotType,
+      				qlvl: napspot.QuietLevel,
+      				notes: napspot.Notes,
 
       			}
       			Naps.insert(payload);

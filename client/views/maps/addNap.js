@@ -1,4 +1,4 @@
-Template.addTree.events({
+Template.addNap.events({
   'click #geoLoc' : function(e){
     e.preventDefault();
     Location.locate(function(pos){

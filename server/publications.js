@@ -2,8 +2,8 @@ Meteor.publish('markers', function (courseParentNum) {
   return Markers.find();
 });
 
-Meteor.publish('trees', function (courseParentNum) {
-  return [Trees.find(), TreesFS.find()];
+Meteor.publish('naps', function (courseParentNum) {
+  return [Naps.find(), NapsFS.find()];
 });
 
 Meteor.publish('course', function (courseParentNum) {
