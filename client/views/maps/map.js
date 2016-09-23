@@ -10,6 +10,14 @@ Template.mapMain.events({
     //Remove session variables
     Session.set('addingNap', undefined);
     Session.set('selectedNap', undefined);
+
+    if(previewMarker.length != 0){
+
+      previewMarker[0].setMap(null);
+      previewMarker = [];
+
+    }
+
   }
 });
 
@@ -90,7 +98,7 @@ Template.mapMain.onCreated(function() {
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: event.latLng,
-          icon: image,
+          icon: previewimage,
           map: map.instance
         });
         google.maps.event.addListener(marker, 'dragend', function(event){
@@ -99,13 +107,19 @@ Template.mapMain.onCreated(function() {
         });
         previewMarker[0] = marker;
       }
-
-
     }
   });
 
   var image = {
     url: '/napmarker.png',
+    size: new google.maps.Size(2000, 3000),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 35)
+  };
+
+  var previewimage = {
+    url: '/previewmarker.png',
     size: new google.maps.Size(2000, 3000),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(17, 34),
