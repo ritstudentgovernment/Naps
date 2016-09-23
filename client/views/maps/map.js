@@ -90,6 +90,7 @@ Template.mapMain.onCreated(function() {
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: event.latLng,
+          icon: image,
           map: map.instance
         });
         google.maps.event.addListener(marker, 'dragend', function(event){
