@@ -10,6 +10,7 @@ Template.mapMain.events({
     //Remove session variables
     Session.set('addingNap', undefined);
     Session.set('selectedNap', undefined);
+    Session.set('reviewNap', undefined);
 
     if(previewMarker.length != 0){
 
@@ -43,7 +44,11 @@ Template.mapMain.helpers({
     },
     addingNap: function(){
       return Session.get('addingNap');
+    },
+    reviewNap: function(){
+      return Session.get('reviewNap');
     }
+
 });
 
 Meteor.startup(function() {
@@ -128,7 +133,7 @@ Template.mapMain.onCreated(function() {
 
   // The code shown below goes here
   var markers = {};
-  Naps.find().observe({
+  Naps.find({approved: true}).observe({
     added: function(document) {
       // Create a marker for this document
       var marker = new google.maps.Marker({

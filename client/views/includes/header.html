@@ -43,8 +43,23 @@
               Add an Entry
             </a>
           </li>
+          {{#if isInRole 'admin'}}
 
+          <li class="hidden-xs">
+            <a id="review" href="">
+              <span class="glyphicon glyphicon-bell"></span>
+              Review Spots
+            </a>
+          </li>
 
+          <li class="{{ isActiveRoute 'review' }} visible-xs">
+            <a id="review" href="{{ pathFor 'review'}}">
+              <span class="glyphicon glyphicon-bell"></span>
+              Review Spots
+            </a>
+          </li> 
+
+          {{/if}}
           {{/if}}
         </ul>
         <ul class="nav navbar-nav navbar-right">

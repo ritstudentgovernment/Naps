@@ -19,7 +19,7 @@ Template.uploadCSV.events({
       if(error){
         throwError(error.reason);
       }else{
-        throwError("Trees Successfuly Added!");
+        throwError("Nap Spots Successfuly Added!");
         Session.set('csvResults', undefined);
       }
     });

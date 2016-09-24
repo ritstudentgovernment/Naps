@@ -7,7 +7,7 @@ var hooksObject = {
     google.maps.event.clearInstanceListeners(previewMarker[0]);
     delete previewMarker[0];
     //Throw success message
-    throwError("Nap Spot Added!");
+    throwError("Your Nap Spot was received and will be reviewed soon!");
     //Set the adding nap session to false
     Session.set('addingNap',false);
     //Set the selected nap to the added nap

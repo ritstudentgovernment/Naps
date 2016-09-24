@@ -8,6 +8,9 @@
       {{#if addingNap}}
         {{> addNap}}
       {{else}}
+        {{#if reviewNap}}
+          {{> review}}
+        {{/if}}
         {{#if selectedNap}}
           {{#with selectedNap}}
             {{> sidenav}}

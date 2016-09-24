@@ -41,6 +41,11 @@ Naps.attachSchema( new SimpleSchema({
 		type: String,
 		optional: true
 	},
+	approved:{
+		type: Boolean,
+		defaultValue: false,
+		optional: false,
+	},
 	creatorId: {
 		type: String,
 		max: 50,
