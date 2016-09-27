@@ -8,12 +8,14 @@
       {{#if addingNap}}
         {{> addNap}}
       {{else}}
-        {{#if reviewNap}}
-          {{> review}}
-        {{/if}}
         {{#if selectedNap}}
           {{#with selectedNap}}
             {{> sidenav}}
+          {{/with}}
+        {{/if}}
+        {{#if editingNap}}
+          {{#with editingNap}}
+            {{> editNap}}
           {{/with}}
         {{/if}}
       {{/if}}

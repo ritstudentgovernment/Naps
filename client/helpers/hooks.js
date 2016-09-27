@@ -1,6 +1,7 @@
 
 var hooksObject = {
   // Called when any submit operation succeeds
+  // 
   onSuccess: function(formType, result) {
     //Remove Preview Marker
     previewMarker[0].setMap(null);

@@ -1,5 +1,4 @@
 <template name="sidenav">
-
     {{#if picture}}
     <div style="text-align:center;">
       <img src="{{napURL picture}}" style="width:100%; max-height:400px; margin-top:-22px;">
@@ -16,8 +15,16 @@
         <b>Quiet Level: </b> {{qlvl}}<br>
         <br><b>Notes</b><br>
         {{notes}}
-        {{#if ownsNap creatorId}}
-        <button id="remove" napId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Remove Nap Spot</button>
+        {{#if canReview}}
+            <button id="edit" napId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Edit Nap Spot</button>
+            {{#if approved}}
+                <button id="remove" napId="{{_id}}" class="btn btn-danger" style="width:100%;margin-top:15px;">Remove Nap Spot</button>
+            {{else}}
+                <div class="btn-group" style="width: 100%; padding:0px;">
+                <button id="approve" napId="{{_id}}" class="btn btn-success" style="margin-top:15px;width:50%;">Approve</button>
+                <button id="remove" napId="{{_id}}" class="btn btn-danger" style="margin-top:15px;width:50%;">Deny</button>
+                </div>
+            {{/if}}
         {{/if}}
     </div>
 

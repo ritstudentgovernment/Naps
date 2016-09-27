@@ -9,10 +9,5 @@ Template.header.events({
     Session.set('addingNap', true);
     $('#sidebar-wrapper').addClass('toggled');
     $('#closePanel').addClass('toggled');
-  },
-  'click #review':function(){
-  	Session.set('reviewNap', true);
-    $('#sidebar-wrapper').addClass('toggled');
-    $('#closePanel').addClass('toggled');
   }
 })

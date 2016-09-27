@@ -10,7 +10,7 @@ Template.mapMain.events({
     //Remove session variables
     Session.set('addingNap', undefined);
     Session.set('selectedNap', undefined);
-    Session.set('reviewNap', undefined);
+    Session.set('editingNap', undefined);
 
     if(previewMarker.length != 0){
 
@@ -45,10 +45,9 @@ Template.mapMain.helpers({
     addingNap: function(){
       return Session.get('addingNap');
     },
-    reviewNap: function(){
-      return Session.get('reviewNap');
+    editingNap: function(){
+      return Session.get('editingNap');
     }
-
 });
 
 Meteor.startup(function() {
@@ -113,6 +112,11 @@ Template.mapMain.onCreated(function() {
         previewMarker[0] = marker;
       }
     }
+    else if(Session.get('editingNap')){
+      $('input[name=lat]').val(event.latLng.lat());
+      $('input[name=lng]').val(event.latLng.lng());
+      markers[Session.get('editingNap')._id].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    }
   });
 
   var image = {
@@ -131,24 +135,38 @@ Template.mapMain.onCreated(function() {
     scaledSize: new google.maps.Size(25, 35)
   };
 
+  var reviewimage = {
+    url: '/reviewmarker.png',
+    size: new google.maps.Size(2000, 3000),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 35)
+  };
+
+
   // The code shown below goes here
   var markers = {};
-  Naps.find({approved: true}).observe({
+  Naps.find().observe({
     added: function(document) {
-      // Create a marker for this document
-      var marker = new google.maps.Marker({
+
+      if(document.approved || Roles.userIsInRole(Meteor.user(), ['admin'])){
+        var marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(document.lat, document.lng),
         map: map.instance,
-        icon: image,
+        icon: reviewimage,
         //Store the document id
         id: document._id
       });
+      if(document.approved){
+        marker.setIcon(image);
+      }
       var infowindow = new google.maps.InfoWindow({
         content: document.contentString
       });
       google.maps.event.addListener(marker, 'click', function() {
         Session.set('addingNap', undefined);
+        Session.set('editingNap', undefined);
         //Set the session variable with the selected nap
         Session.set('selectedNap', document);
         //Get the number of nap spots of this type on campus
@@ -160,8 +178,26 @@ Template.mapMain.onCreated(function() {
 
       // Store this marker instance within the markers object.
       markers[document._id] = marker;
+      }
     },
     changed: function(newDocument, oldDocument) {
+      
+      if(newDocument.approved){
+        markers[newDocument._id].setIcon(image);
+      }
+      else{
+        markers[newDocument._id].setIcon(reviewimage);
+      }
+
+      Session.set('editingNap', undefined);
+      Session.set('selectedNap', newDocument);
+      
+      //Get the number of nap spots of this type on campus
+      $('#sidebar-wrapper').addClass('toggled');
+      $('#closePanel').addClass('toggled');
+      $('#bottombar-wrapper').addClass('toggle-bottom');
+      $('#map').addClass('map-toggle');
+
       markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
     },
     removed: function(oldDocument) {

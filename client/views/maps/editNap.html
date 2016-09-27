@@ -1,0 +1,18 @@
+<template name="editNap">
+	<div class="side-nav">
+		{{#autoForm collection="Naps" doc=this id="napForm" type="update"}}
+		<fieldset>
+			<legend>Edit a Nap Spot</legend>
+			{{> afQuickField name='lat' value= lat }}
+			{{> afQuickField name='lng' value= lng }}
+			<a id="geoLoc" class="btn btn-primary" style="width:100%;">Get Current Location</a>
+      		{{> afQuickField name="picture" type="cfs-file" value= picture collection="napsFS"}}
+      		{{> afQuickField name='spot_type' value= spot_type placeholder='Sofa'}}
+      		{{> afQuickField name='size' value= size placeholder= '2 Seater'}}
+      		{{> afQuickField name='qlvl' value= qlvl placeholder='0-10' min=0 max=10}}
+      		{{> afQuickField name='notes' value= notes rows=2 placeholder=''}}
+		</fieldset>
+		<button type="submit" class="btn btn-primary" style="width:100%;">Edit</button>
+		{{/autoForm}}
+	</div>
+</template>
