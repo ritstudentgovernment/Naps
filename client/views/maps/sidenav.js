@@ -21,9 +21,6 @@ Template.sidenav.events({
   'click #approve':function(e){
     var id = e.target.getAttribute('napid');
     Naps.update({ _id: id}, {$set: {approved: true}});
-    $('#closePanel').removeClass('toggled');
-    $('#sidebar-wrapper').removeClass('toggled');
-    $('#bottombar-wrapper').removeClass('toggle-bottom');
-    $('#map').removeClass('map-toggle');
+    throwError("Nap Spot was succesfully approved.");
   }
 });

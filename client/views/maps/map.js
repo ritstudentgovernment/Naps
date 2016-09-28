@@ -24,21 +24,6 @@ Template.mapMain.events({
 
 
 Template.mapMain.helpers({
-    exampleMapOptions: function() {
-      // Make sure the maps API has loaded
-      if (GoogleMaps.loaded()) {
-        // Map initialization options
-        return {
-          center: new google.maps.LatLng(43.0832, -77.6778),
-          zoom: 16,
-          mapTypeControl: true,
-          mapTypeControlOptions: {
-              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-              position: google.maps.ControlPosition.TOP_RIGHT
-          },
-        };
-      }
-    },
     selectedNap: function(){
       return Session.get('selectedNap');
     },
@@ -189,16 +174,22 @@ Template.mapMain.onCreated(function() {
         markers[newDocument._id].setIcon(reviewimage);
       }
 
-      Session.set('editingNap', undefined);
+      google.maps.event.addListener(markers[newDocument._id], 'click', function() {
+        Session.set('addingNap', undefined);
+        Session.set('editingNap', undefined);
+        //Set the session variable with the selected nap
+        Session.set('selectedNap', newDocument);
+        //Get the number of nap spots of this type on campus
+        $('#sidebar-wrapper').addClass('toggled');
+        $('#closePanel').addClass('toggled');
+        $('#bottombar-wrapper').addClass('toggle-bottom');
+        $('#map').addClass('map-toggle');
+      });
+
       Session.set('selectedNap', newDocument);
-      
-      //Get the number of nap spots of this type on campus
-      $('#sidebar-wrapper').addClass('toggled');
-      $('#closePanel').addClass('toggled');
-      $('#bottombar-wrapper').addClass('toggle-bottom');
-      $('#map').addClass('map-toggle');
 
       markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+
     },
     removed: function(oldDocument) {
       // Remove the marker from the map

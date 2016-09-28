@@ -3,20 +3,58 @@ var hooksObject = {
   // Called when any submit operation succeeds
   // 
   onSuccess: function(formType, result) {
-    //Remove Preview Marker
-    previewMarker[0].setMap(null);
-    google.maps.event.clearInstanceListeners(previewMarker[0]);
-    delete previewMarker[0];
-    //Throw success message
-    throwError("Your Nap Spot was received and will be reviewed soon!");
-    //Set the adding nap session to false
-    Session.set('addingNap',false);
-    //Set the selected nap to the added nap
-    var nap = Naps.findOne(result);
-    Session.set('selectedNap', nap);
+
+    if(formType == "insert"){
+
+      //Remove Preview Marker
+      if(previewMarker.length != 0){
+
+        previewMarker[0].setMap(null);
+        google.maps.event.clearInstanceListeners(previewMarker[0]);
+        delete previewMarker[0];
+
+      }
+
+      if(Roles.userIsInRole(Meteor.userId(), ['reviewer']) || Roles.userIsInRole(Meteor.userId(), ['admin'])){
+
+        //Throw success message
+        throwError("Your Nap Spot was successfully added.");
+
+      }
+      else{
+
+        //Throw success message
+        throwError("Your Nap Spot was received and will be reviewed soon!");
+
+      }
+
+      //Set the adding nap session to false
+      Session.set('addingNap', false);
+
+      //Set the selected nap to the added nap
+      var nap = Naps.findOne(result);
+      Session.set('selectedNap', nap);
+
+    }
+    else if(formType == "update"){
+
+      //Throw success message
+      throwError("Your Nap Spot was successfully updated.");
+      
+      //Set the editing nap session to false
+      Session.set('editingNap',false);
+
+      //Set the selected nap to the edited nap
+      var nap = Naps.findOne(this.docId);
+      Session.set('selectedNap', nap);
+
+    }
+      
     //if on mobile add page go back to map
     if(routeUtils.testRoutes('addNap')){
+
         Router.go('/');
+
     }
   },
 

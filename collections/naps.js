@@ -43,8 +43,17 @@ Naps.attachSchema( new SimpleSchema({
 	},
 	approved:{
 		type: Boolean,
-		defaultValue: false,
 		optional: false,
+		autoValue: function(){
+			if(Roles.userIsInRole(Meteor.userId(), ['admin']) || Roles.userIsInRole(Meteor.userId(), ['reviewer'])){
+
+				return true;
+
+			}
+			else{
+				return false;
+			}
+		}
 	},
 	creatorId: {
 		type: String,

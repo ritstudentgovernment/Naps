@@ -76,3 +76,19 @@ Handlebars.registerHelper('moreReviewsNeeded', function () {
     return true;
   }
 });
+
+Handlebars.registerHelper('exampleMapOptions', function(){
+  // Make sure the maps API has loaded
+      if (GoogleMaps.loaded()) {
+        // Map initialization options
+        return {
+          center: new google.maps.LatLng(43.0832, -77.6778),
+          zoom: 16,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              position: google.maps.ControlPosition.TOP_RIGHT
+          },
+        };
+      }
+});
