@@ -1,4 +1,5 @@
 previewMarker = [];
+markers = {};
 
 Template.mapMain.events({
   'click #closeSide':function(){
@@ -10,9 +11,15 @@ Template.mapMain.events({
     //Remove session variables
     Session.set('addingNap', undefined);
     Session.set('selectedNap', undefined);
-    Session.set('editingNap', undefined);
+    if(Session.get("editingNap")){
+      var id = Session.get("editingNap")._id;
+      var nap = Naps.findOne(id);
+      alert(nap.lng);
+      markers[id].setPosition({lat: parseFloat(nap.lat), lng: parseFloat(nap.lng)});
+      Session.set('editingNap', undefined);
+    }
 
-    if(previewMarker.length != 0){
+    if(previewMarker.length){
 
       previewMarker[0].setMap(null);
       previewMarker = [];
@@ -42,7 +49,7 @@ Meteor.startup(function() {
 Template.mapMain.onCreated(function() {
 
   GoogleMaps.ready('napMap', function(map) {
-
+    
     var allowedBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(43.076, -77.691),
       new google.maps.LatLng(43.094, -77.651));
@@ -66,13 +73,13 @@ Template.mapMain.onCreated(function() {
       if (y < minY) y = minY;
       if (y > maxY) y = maxY;
       map.instance.setCenter(new google.maps.LatLng(y, x));
-  });
+    });
 
 
-   // Limit the zoom level
-  google.maps.event.addListener(map.instance, 'zoom_changed', function() {
-    if (map.instance.getZoom() < 15) map.instance.setZoom(15);
-  });
+    // Limit the zoom level
+    google.maps.event.addListener(map.instance, 'zoom_changed', function() {
+      if (map.instance.getZoom() < 15) map.instance.setZoom(15);
+    });
 
 
   google.maps.event.addListener(map.instance, 'click', function(event) {
@@ -113,12 +120,14 @@ Template.mapMain.onCreated(function() {
   };
 
   var previewimage = {
-    url: '/previewmarker.png',
-    size: new google.maps.Size(2000, 3000),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(25, 35)
+      url: '/previewmarker.png',
+      size: new google.maps.Size(2000, 3000),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 35)
   };
+
+  Session.set("previewImage", previewimage);
 
   var reviewimage = {
     url: '/reviewmarker.png',
@@ -129,12 +138,10 @@ Template.mapMain.onCreated(function() {
   };
 
 
-  // The code shown below goes here
-  var markers = {};
   Naps.find().observe({
     added: function(document) {
 
-      if(document.approved || Roles.userIsInRole(Meteor.user(), ['admin'])){
+      if(document.approved || Roles.userIsInRole(Meteor.user(), ['admin']) || Roles.userIsInRole(Meteor.user(), ['reviewer'])){
         var marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(document.lat, document.lng),

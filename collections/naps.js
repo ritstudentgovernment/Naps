@@ -64,8 +64,8 @@ Naps.attachSchema( new SimpleSchema({
 
 Naps.allow({
 	insert: function () { return Meteor.user(); },
-  	update: function (userId) { return Roles.userIsInRole(userId, ['admin']); },
-  	remove: function (userId, doc) { return userId == doc.creatorId || Roles.userIsInRole(userId, ['admin']); },
+  	update: function (userId) { return Roles.userIsInRole(userId, ['admin']) || Roles.userIsInRole(userId, ['reviewer']); },
+  	remove: function (userId, doc) { return Roles.userIsInRole(userId, ['admin']) || Roles.userIsInRole(userId, ['reviewer']); },
 });
 
 NapsFS = new FS.Collection('napsFS', {

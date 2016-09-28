@@ -13,8 +13,10 @@ Template.addNap.events({
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: { lat: pos.latitude, lng: pos.longitude },
-          icon: previewimage,
+          icon: Session.get("previewImage"),
+          map: GoogleMaps.maps.napMap.instance
         });
+
         google.maps.event.addListener(marker, 'dragend');
         previewMarker[0] = marker;
        }
