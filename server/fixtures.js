@@ -11,7 +11,6 @@ Meteor.startup(function() {
       evaluationCounts: [],
       sectionIds: []
     });
-    Roles.addUsersToRoles(adminUser, ['admin']);
     Roles.addUsersToRoles(adminUser, ['reviewer']);
 
   }

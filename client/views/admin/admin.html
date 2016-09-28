@@ -20,12 +20,12 @@
 <template name="users">
   <div class="tab-pane active" id="users">
     <div class="tab-container shadow">
-      <div class="col-lg-1">
+      <div class="col-xs-4">
         <h2>Admins</h2>
         <p>Administrators can manage user roles and nap spots</p>
         {{> userList users= admins role="admin" }}
       </div>
-      <div class="col-lg-1">
+      <div class="col-xs-4">
         <h2>Reviewers</h2>
         <p>Reviewers can manage nap spots</p>
         {{> userList users= revs role="reviewer" }}
@@ -45,7 +45,7 @@
                value="{{../role}}"
                type="hidden">
         <input name="username"
-               value="{{profile.name}} - {{username}}"
+               value="{{identity.firstName.prettyPrintName}} - {{username}}"
                type="text"
                class="form-control"
                disabled>

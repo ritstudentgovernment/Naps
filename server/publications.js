@@ -18,6 +18,23 @@ Meteor.publish('instructor', function (name) {
   return Instructors.find({name: name});
 });
 
+Meteor.publish('revUsers', function(){
+  if(Roles.userIsInRole(this.userId, ['admin'])){
+    return Meteor.users.find({roles: {$in: ["admin","reviewer"]}}, {
+      fields: {
+        username: 1,
+        roles: 1,
+        "identity.firstName": 1
+      }
+    });
+  }
+  else{
+    this.stop();
+    return;
+  }
+  
+});
+
 Meteor.publish('privilegedUsers', function () {
   if (Roles.userIsInRole(this.userId, ['admin'])) {
     return Meteor.users.find({roles: {$in: ['admin']}}, {
@@ -31,6 +48,7 @@ Meteor.publish('privilegedUsers', function () {
     this.stop();
     return;
   }
+
 });
 
 Meteor.publish('instructorSections', function (name) {
