@@ -141,7 +141,7 @@ Template.mapMain.onCreated(function() {
   Naps.find().observe({
     added: function(document) {
 
-      if(document.approved || Roles.userIsInRole(Meteor.user(), ['admin']) || Roles.userIsInRole(Meteor.user(), ['reviewer'])){
+      if(document.approved || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
         var marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(document.lat, document.lng),

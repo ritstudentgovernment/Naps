@@ -51,7 +51,7 @@ Handlebars.registerHelper('napURL', function (id) {
 });
 
 Handlebars.registerHelper('canReview', function () {
-  if(Roles.userIsInRole(Meteor.userId(), ['reviewer']) || Roles.userIsInRole(Meteor.userId(), ['admin'])){
+  if(Roles.userIsInRole(Meteor.userId(), ['reviewer','admin'])){
     return true;
   }
   else{

@@ -45,7 +45,7 @@ Naps.attachSchema( new SimpleSchema({
 		type: Boolean,
 		optional: false,
 		autoValue: function(){
-			if(Roles.userIsInRole(Meteor.userId(), ['admin']) || Roles.userIsInRole(Meteor.userId(), ['reviewer'])){
+			if(Roles.userIsInRole(Meteor.userId(), ['admin','reviewer'])){
 
 				return true;
 
@@ -64,8 +64,8 @@ Naps.attachSchema( new SimpleSchema({
 
 Naps.allow({
 	insert: function () { return Meteor.user(); },
-  	update: function (userId) { return Roles.userIsInRole(userId, ['admin']) || Roles.userIsInRole(userId, ['reviewer']); },
-  	remove: function (userId, doc) { return Roles.userIsInRole(userId, ['admin']) || Roles.userIsInRole(userId, ['reviewer']); },
+  	update: function (userId) { return Roles.userIsInRole(userId, ['admin','reviewer']); },
+  	remove: function (userId, doc) { return Roles.userIsInRole(userId, ['admin','reviewer']); },
 });
 
 NapsFS = new FS.Collection('napsFS', {

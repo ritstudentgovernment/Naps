@@ -15,7 +15,7 @@ var hooksObject = {
 
       }
 
-      if(Roles.userIsInRole(Meteor.userId(), ['reviewer']) || Roles.userIsInRole(Meteor.userId(), ['admin'])){
+      if(Roles.userIsInRole(Meteor.userId(), ['reviewer','admin'])){
 
         //Throw success message
         throwError("Your Nap Spot was successfully added.");
