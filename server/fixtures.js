@@ -12,5 +12,7 @@ Meteor.startup(function() {
       sectionIds: []
     });
     Roles.addUsersToRoles(adminUser, ['admin']);
+    Roles.addUsersToRoles(adminUser, ['reviewer']);
+
   }
 });

@@ -20,10 +20,15 @@
 <template name="users">
   <div class="tab-pane active" id="users">
     <div class="tab-container shadow">
-      <div class="col-sm-4">
+      <div class="col-lg-1">
         <h2>Admins</h2>
         <p>Administrators can manage user roles and nap spots</p>
-        {{> userList users=admins role="admin" }}
+        {{> userList users= admins role="admin" }}
+      </div>
+      <div class="col-lg-1">
+        <h2>Reviewers</h2>
+        <p>Reviewers can manage nap spots</p>
+        {{> userList users= revs role="reviewer" }}
       </div>
     </div>
   </div>
