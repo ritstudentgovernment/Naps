@@ -5,6 +5,12 @@ Template.focusNap.onRendered(function(){
 		var lat = parseFloat(Session.get("selectedNap").lat);
 		var lng = parseFloat(Session.get("selectedNap").lng);
 
+		GoogleMaps.ready('napMap', function(map) {
+
+			map.instance.panTo({lat: lat, lng: lng});
+
+		});
+
 		$('#sidebar-wrapper').addClass('toggled');
 	    $('#closePanel').addClass('toggled');
 	    $('#bottombar-wrapper').addClass('toggle-bottom');
