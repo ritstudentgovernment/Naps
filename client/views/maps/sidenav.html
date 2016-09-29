@@ -14,7 +14,7 @@
         <b>Size: </b> {{size}}<br>
         <b>Quiet Level: </b> {{qlvl}}<br>
         <br><b>Notes</b><br>
-        {{notes}}
+        {{notes}}<br>
         {{#if canReview}}
             <button id="edit" napId="{{_id}}" class="btn btn-primary" style="width:100%;margin-top:15px;">Edit Nap Spot</button>
             {{#if approved}}
@@ -24,6 +24,10 @@
                 <button id="approve" napId="{{_id}}" class="btn btn-success" style="margin-top:15px;width:50%;">Approve</button>
                 <button id="remove" napId="{{_id}}" class="btn btn-danger" style="margin-top:15px;width:50%;">Deny</button>
                 </div>
+            {{/if}}
+        {{else}}
+            {{#if ownPending approved}}
+                <br><p style="font-weight: bold;">Your Nap Spot is currently under review, please check back later!</p><br>
             {{/if}}
         {{/if}}
     </div>

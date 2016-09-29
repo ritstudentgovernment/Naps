@@ -1,6 +1,9 @@
 Template.sidenav.helpers({
   'napCount':function(s){
     return Naps.find({spot_type:s}).count();
+  },
+  'ownPending':function(approved){
+    return !approved && Meteor.user()._id;
   }
 });
 
