@@ -25,6 +25,21 @@ var hooksObject = {
 
         //Throw success message
         throwError("Your Nap Spot was received and will be reviewed soon!");
+        var email = Meteor.user().username + "@rit.edu";
+        var nap = Naps.findOne(result);
+        var napLink = Meteor.absoluteUrl() + 'nap/' + result;
+        var emailData = {
+          name: Meteor.user().username,
+          spot_type: nap.spot_type,
+          lat: nap.lat,
+          lng: nap.lng,
+          size: nap.size,
+          qlvl: nap.qlvl,
+          notes: nap.notes,
+          napLink: napLink
+        };
+
+        Meteor.call('emailUser', email, emailData);
 
       }
 

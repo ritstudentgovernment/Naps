@@ -117,4 +117,16 @@ Meteor.methods({
     Meteor.users.update({username: username}, action);
 
   },
+  emailUser: function(email, emailData){
+
+    SSR.compileTemplate('htmlEmail', Assets.getText('newNap.html'));
+
+    Email.send({
+          to: email,
+          from: "noreply@mailtrap.io",
+          subject: "New Nap Created",
+          html: SSR.render('htmlEmail', emailData),
+        });
+    
+  }
 });

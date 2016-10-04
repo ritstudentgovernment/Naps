@@ -1,0 +1,181 @@
+<html>
+	<header>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+
+			html body{
+				margin: 0;
+				margin: 0px;
+				padding: 0px;
+				background-color: #F1F1F1;
+				font-family: "Helvetica Neue";
+				font-weight: 200;
+			}
+
+			h2{
+				font-weight: 400;
+			}
+
+			.email-wrapper{
+				width: 600px;
+				margin: 0 auto;
+				background-color: #fff;
+				display: block;
+			}
+
+			.email-header{
+
+				background-color: #f49e42;
+				color: white;
+				text-align: center;
+				padding-top: 10px;
+				padding-bottom: 10px;
+
+			}
+			
+			.email-header p{
+				padding: 5px;
+			}
+
+			.nap-info{
+				
+				margin: 0 auto;
+				overflow: hidden;
+			}
+
+			.napImage{
+				width: 50%;
+				float: left;
+			}
+
+			.nap-data{
+				width: 50%;
+				float: right;
+			}
+
+			.nap-data table{
+				width: 100%;
+				padding: 10px;
+			}
+
+			.nap-data table td{
+				padding-bottom: 5px;
+			}
+
+
+			.label{
+
+				width: 50%; 
+				float: left; 
+				font-weight: 700;
+				font-size: 15px;
+				word-wrap: normal;
+
+			}
+
+			.data{
+
+				width: 60%; 
+				float right;
+				font-size: 15px;
+				word-wrap: break-word;
+			}
+
+			.buttonArea{
+				text-align: center;
+				width: 100%;
+				display: inline-block;
+				padding-top: 20px;
+			}
+
+			.reviewButton {
+				-moz-box-shadow: 0px 4px 0px 0px #519839;
+				-webkit-box-shadow: 0px 4px 0px 0px #519839;
+				box-shadow: 0px 4px 0px 0px #519839;
+				background-color:#62bd4f;
+				-moz-border-radius:8px;
+				-webkit-border-radius:8px;
+				border-radius:8px;
+				display:inline-block;
+				cursor:pointer;
+				color:#ffffff;
+				font-family:Arial;
+				font-size:19px;
+				padding:24px 33px;
+				margin: 20px;
+				padding-bottom: 20px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #2f6627;
+			}
+
+			.reviewButton:active {
+				position:relative;
+				top:1px;
+			}
+
+			@media (max-width: 480px){
+
+				.email-wrapper{
+					width: 100%;
+				}
+
+			
+				.napImage{
+					width: 100%;
+					height: 300px;
+				}
+
+				
+
+				.nap-data{
+					width: 100%;
+				}
+			}
+
+		</style>
+	</header>
+	<body>
+			<div class="email-wrapper">
+			    <div class="email-header">
+			    	<h2>A Nap Spot was created!</h2>
+			    	<p>You're receiving this email because a Nap Spot was created by {{name}} and has to be reviewed.</p>
+			    </div>
+			    <div class="nap-info">
+			    	<img class="napImage" src="http://placehold.it/600x600">
+			    	<div class="nap-data">
+				    	<h2 style="text-align: center;">Nap Spot Information</h2>
+				    	<table>
+				    		<tr>
+				    			<td class="label">Type:</td>
+				    			<td class="data">{{spot_type}}</td>
+				    		</tr>
+				    		<tr>
+				    			<td class="label">Latitude:</td>
+				    			<td class="data">{{lat}}</td>
+				    		</tr>
+				    		<tr>
+				    			<td class="label">Longitude:</td>
+				    			<td class="data">{{lng}}</td>
+				    		</tr>
+				    		<tr>
+				    			<td class="label">Size:</td>
+				    			<td class="data">{{size}}</td>
+				    		</tr>
+				    		<tr>
+				    			<td class="label">QuietLevel:</td>
+				    			<td class="data">{{qlvl}}</td>
+				    		</tr>
+				    		<tr>
+				    			<td class="label">Notes:</td>
+				    			<td class="data">{{notes}}</td>
+				    		</tr>
+				    	</table>
+			    	</div>
+			    	<div class="buttonArea">
+				    	<p>Please, click the link below if you would like to review this Nap Spot.</p>
+				    	<a href="{{napLink}}" class="reviewButton">Review Nap Spot</a>
+			    	</div>
+			    </div>
+		    </div>
+	</body>
+</html>
