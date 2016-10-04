@@ -43,7 +43,7 @@ Template.mapMain.helpers({
 });
 
 Meteor.startup(function() {
-  GoogleMaps.load({key: 'AIzaSyBhq_rC6dyPH1p5PUSOo9DXMVHYwI4pJW8'});
+  GoogleMaps.load({key: Meteor.settings.public.MAPSKEY});
 });
 
 Template.mapMain.onCreated(function() {

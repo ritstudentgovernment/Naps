@@ -36,7 +36,8 @@ var hooksObject = {
           size: nap.size,
           qlvl: nap.qlvl,
           notes: nap.notes,
-          napLink: napLink
+          napLink: napLink,
+          staticKey: Meteor.settings.public.STATICKEY
         };
 
         Meteor.call('emailUser', email, emailData);

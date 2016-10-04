@@ -123,7 +123,7 @@ Meteor.methods({
 
     Email.send({
           to: email,
-          from: "noreply@mailtrap.io",
+          from: "sgnoreply@rit.edu",
           subject: "New Nap Created",
           html: SSR.render('htmlEmail', emailData),
         });
