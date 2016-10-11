@@ -39,6 +39,7 @@ var hooksObject = {
           notes: nap.notes,
           napLink: napLink,
           staticKey: Meteor.settings.public.STATICKEY,
+          creatorId: nap.creatorId,
           logoLink: Meteor.absoluteUrl() + 'sglogo.png',
           unsubLink: Meteor.absoluteUrl() + 'unsubscribe/' + Meteor.user()._id,
         };

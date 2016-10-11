@@ -57,8 +57,7 @@ Naps.attachSchema( new SimpleSchema({
 	},
 	creatorId: {
 		type: String,
-		max: 50,
-		autoValue: function () { return Meteor.userId(); }
+		max: 50
 	}
 }));
 

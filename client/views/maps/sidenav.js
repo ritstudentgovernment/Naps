@@ -24,6 +24,24 @@ Template.sidenav.events({
   'click #approve':function(e){
     var id = e.target.getAttribute('napid');
     Naps.update({ _id: id}, {$set: {approved: true}});
+    var nap = Naps.findOne(id);
+    var napLink = Meteor.absoluteUrl() + 'nap/' + id;
+
+    var emailData = {
+      spot_type: nap.spot_type,
+      lat: nap.lat,
+      lng: nap.lng,
+      size: nap.size,
+      qlvl: nap.qlvl,
+      notes: nap.notes,
+      napLink: napLink,
+      staticKey: Meteor.settings.public.STATICKEY,
+      creatorId: nap.creatorId,
+      logoLink: Meteor.absoluteUrl() + 'sglogo.png'
+    };
+
+    Meteor.call('emailUser', null, emailData, "napApproved");
+
     throwError("Nap Spot was succesfully approved.");
   }
 });

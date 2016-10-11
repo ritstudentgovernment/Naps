@@ -2,11 +2,19 @@ Meteor.methods({
 emailUser: function(email, emailData, actionType){
 
   SSR.compileTemplate('newNap', Assets.getText('newNap.html'));
+  SSR.compileTemplate('approveNap', Assets.getText('approveNap.html'));
   SSR.compileTemplate('reviewNap', Assets.getText('reviewNap.html'));
+
+  var creator = Meteor.users.findOne({"_id": emailData.creatorId});
+
+  email = creator.username + "@rit.edu";
+  emailData.name = creator.username;
+  emailData.likesEmail = creator.likesEmail;
+  emailData.unsubLink = Meteor.absoluteUrl() + 'unsubscribe/' + creator._id;
 
   if(actionType == "napAdded"){
 
-    if(Meteor.user().likesEmail){
+    if(emailData.likesEmail){
 
       Email.send({
         to: email,
@@ -32,6 +40,17 @@ emailUser: function(email, emailData, actionType){
         from: "sgnoreply@rit.edu",
         subject: "New Nap Created",
         html: SSR.render('reviewNap', emailData),
+      });
+    }
+  }
+  else if(actionType == "napApproved"){
+
+    if(emailData.likesEmail){
+      Email.send({
+        to: email,
+        from: "sgnoreply@rit.edu",
+        subject: "Nap Spot approved.",
+        html: SSR.render('approveNap', emailData),
       });
     }
   }
