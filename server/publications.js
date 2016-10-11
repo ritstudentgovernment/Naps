@@ -35,6 +35,10 @@ Meteor.publish('revUsers', function(){
   
 });
 
+Meteor.publish('unsubUser', function(id){
+    return Meteor.users.find({_id: id});
+});
+
 
 Meteor.publish('instructorSections', function (name) {
   return Sections.find(

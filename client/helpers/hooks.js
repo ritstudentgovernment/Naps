@@ -28,6 +28,7 @@ var hooksObject = {
         var email = Meteor.user().username + "@rit.edu";
         var nap = Naps.findOne(result);
         var napLink = Meteor.absoluteUrl() + 'nap/' + result;
+
         var emailData = {
           name: Meteor.user().username,
           spot_type: nap.spot_type,
@@ -37,10 +38,12 @@ var hooksObject = {
           qlvl: nap.qlvl,
           notes: nap.notes,
           napLink: napLink,
-          staticKey: Meteor.settings.public.STATICKEY
+          staticKey: Meteor.settings.public.STATICKEY,
+          logoLink: Meteor.absoluteUrl() + 'sglogo.png',
+          unsubLink: Meteor.absoluteUrl() + 'unsubscribe/' + Meteor.user()._id,
         };
 
-        Meteor.call('emailUser', email, emailData);
+        Meteor.call('emailUser', email, emailData, "napAdded");
 
       }
 

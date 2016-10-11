@@ -38,6 +38,11 @@ Meteor.users.attachSchema(new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  likesEmail: {
+    type: Boolean,
+    optional: false,
+    defaultValue: true,
   }
 }));
 
@@ -79,6 +84,7 @@ Meteor.users.getSections = function (esUser) {
   return sections;
 }
 
+
 Meteor.users.getESUser = function (username) {
   return Async.runSync(function (done) {
     HTTP.post(Meteor.settings.ELASTICSEARCH_ENDPOINT, {
@@ -116,17 +122,5 @@ Meteor.methods({
 
     Meteor.users.update({username: username}, action);
 
-  },
-  emailUser: function(email, emailData){
-
-    SSR.compileTemplate('htmlEmail', Assets.getText('newNap.html'));
-
-    Email.send({
-          to: email,
-          from: "sgnoreply@rit.edu",
-          subject: "New Nap Created",
-          html: SSR.render('htmlEmail', emailData),
-        });
-    
   }
 });

@@ -1,0 +1,154 @@
+/* Basics */
+html{
+    font-family: Arial;
+}
+body {
+    margin: 0 !important;
+    padding: 0;
+    background-color: #F1F1F1;
+}
+table {
+    border-spacing: 0;
+    font-family: sans-serif;
+    color: #333333;
+    background-color: #fff;
+}
+td {
+    padding: 0;
+}
+img {
+    border: 0;
+}
+div[style*="margin: 16px 0"] { 
+    margin:0 !important;
+}
+h1{
+    font-weight: 500;
+}
+.wrapper {
+    width: 100%;
+    table-layout: fixed;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+.webkit {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.outer {
+    Margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.email-header{
+    width: 100%;
+    max-width: 600px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f49e42;
+    text-align: center;
+    color: #fff;
+}
+
+p{
+    padding: 5px;
+}
+
+/*Two column layout*/
+.two-column {
+    text-align: center;
+    font-size: 0;
+}
+
+.two-column .column {
+    width: 100%;
+    max-width: 300px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.contents {
+    width: 100%;
+}
+
+.two-column .contents {
+    font-size: 14px;
+    text-align: left;
+}
+.two-column img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+.two-column .text {
+    padding-top: 5px;
+    text-align: center;
+}
+
+.napinfo{
+    width: 100%;
+    Margin: 0 auto;
+    font-size: 14px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.napinfo td{
+    padding-bottom: 10px;
+}
+
+
+td .label{
+    font-weight: 800;
+}
+
+.button-area{
+    width: 100%;
+    max-width: 600px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fff;
+    text-align: center;
+    color: #000;
+    background-color: #fff;
+}
+
+.reviewButton {
+
+    -moz-box-shadow: 0px 4px 0px 0px #519839;
+    -webkit-box-shadow: 0px 4px 0px 0px #519839;
+    box-shadow: 0px 4px 0px 0px #519839;
+    background-color:#62bd4f;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:19px;
+    padding:24px 33px;
+    margin: 20px;
+    padding-bottom: 20px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+
+.reviewButton:active {
+    position:relative;
+    top:1px;
+}
+
+.footer-img {
+    width: 200px;
+    max-width: 600px;
+    height: auto;
+}
+
+.footer-unsub{
+    padding: 0px;
+    font-size: 12px;
+}

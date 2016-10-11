@@ -8,20 +8,34 @@ var ldap = Meteor.npmRequire('ldapjs'),
  * async calls.
  */
 LDAP.quickAuth = function (options) {
+
   var username = options.username.trim().toLowerCase();
   LDAP.quickClient = ldap.createClient({url: 'ldaps://ldap.rit.edu'});
   var exec = Meteor.sync(function (done) {
-    var bindDN = 'uid=' + username + ',ou=People,dc=rit,dc=edu';
-    LDAP.quickClient.bind(bindDN, options.password, function onQuickLDAPBind (err) {
+
+    // Check if user leaves any of the fields empty.
+    if(options.username.length === 0 || options.password.length === 0){
+
+      err = true;
       done(err);
-    });
+
+    }
+    else{
+
+      var bindDN = 'uid=' + username + ',ou=People,dc=rit,dc=edu';
+      LDAP.quickClient.bind(bindDN, options.password, function onQuickLDAPBind (err) {
+        done(err);
+      });
+
+    }
   });
-  if (!exec.err) {
+
+  if (!exec.error) {
     var query = {username: username};
-    Meteor.users.upsert(query, {$set: query, $setOnInsert: {evaluationCounts: [], sectionIds: []}});
+    Meteor.users.upsert(query, {$set: query, $setOnInsert: {evaluationCounts: [], sectionIds: [], likesEmail: true}});
   }
   return exec;
-};
+}
 
 LDAP.updateAccountMetadata = function (username) {
   var opts = {};
