@@ -198,7 +198,7 @@ td .label{
                                         <table class="contents" style="border-spacing: 0;font-family: sans-serif;color: #333333;background-color: #fff;width: 100%;font-size: 14px;text-align: left;">
                                             <tr>
                                                     <td style="padding: 0;">
-                                                            <img src="{{imgUrl}}" width="300" alt="" style="border: 0;width: 100%;max-width: 300px;height: auto;">
+                                                            <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lng}}&markers=|{{lat}},{{lng}}|&zoom=16&size=300x300&maptype=roadmap&key={{staticKey}}" width="300" alt="" style="border: 0;width: 100%;max-width: 300px;height: auto;">
                                                     </td>
                                             </tr>
                                         </table>
@@ -260,9 +260,9 @@ td .label{
                     </td>
                 </tr>
                 <tr>
-                    <td class="footer" style="padding: 0;">
-                        <img class="footer-img" src="{{logoLink}}" width="200" alt="" style="border: 0;width: 200px;max-width: 600px;height: auto;">
-                        <p class="footer-unsub" style="padding: 0px;font-size: 12px;">If you would like to stop receiving emails, please <a href="{{unsubLink}}">unsubscribe</a></p>
+                    <td class="footer" style="padding: 0; text-align: center;">
+                        <center><img class="footer-img" src="{{logoLink}}" width="200" alt="" style="border: 0;width: 200px;max-width: 600px;height: auto;"></center>
+                        <p class="footer-unsub" style="padding: 0px;font-size: 12px;text-align:center;">If you would like to stop receiving emails, please <a href="{{unsubLink}}">unsubscribe</a></p>
                     </td>
                 </tr>
             </table>
