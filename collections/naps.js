@@ -30,12 +30,7 @@ Naps.attachSchema( new SimpleSchema({
 	notes: {
 		label: "Notes",
 		type: String,
-		optional: true,
-		autoValue: function(){
-			if(!this.isSet){
-				return 'None Listed';
-			}
-		}
+		optional: true
 	},
 	picture: {
 		type: String,
