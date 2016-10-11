@@ -3,7 +3,9 @@ emailUser: function(email, emailData, actionType){
 
   SSR.compileTemplate('newNap', Assets.getText('newNap.html'));
   SSR.compileTemplate('approveNap', Assets.getText('approveNap.html'));
+  SSR.compileTemplate('denyNap', Assets.getText('denyNap.html'));
   SSR.compileTemplate('reviewNap', Assets.getText('reviewNap.html'));
+
 
   var creator = Meteor.users.findOne({"_id": emailData.creatorId});
 
@@ -43,16 +45,23 @@ emailUser: function(email, emailData, actionType){
       });
     }
   }
-  else if(actionType == "napApproved"){
+  else if(actionType == "napApproved" && emailData.likesEmail){
 
-    if(emailData.likesEmail){
-      Email.send({
-        to: email,
-        from: "sgnoreply@rit.edu",
-        subject: "Nap Spot approved.",
-        html: SSR.render('approveNap', emailData),
-      });
-    }
+    Email.send({
+      to: email,
+      from: "sgnoreply@rit.edu",
+      subject: "Nap Spot approved.",
+      html: SSR.render('approveNap', emailData),
+    });
+  }
+  else if(actionType == "napDenied" && emailData.likesEmail){
+
+    Email.send({
+      to: email,
+      from: "sgnoreply@rit.edu",
+      subject: "Nap Spot denied.",
+      html: SSR.render('denyNap', emailData),
+    });
   }
 },
 unsubscribe: function(id){
