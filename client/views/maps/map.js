@@ -134,6 +134,8 @@ Template.mapMain.onCreated(function() {
 	      scaledSize: new google.maps.Size(25, 35)
 	    };
 
+	    Session.set("Image", image);
+
 	    var previewimage = {
 	        url: '/previewmarker.png',
 	        size: new google.maps.Size(2000, 3000),
@@ -152,6 +154,8 @@ Template.mapMain.onCreated(function() {
 	      scaledSize: new google.maps.Size(25, 35)
 	    };
 
+	    Session.set("reviewImage", reviewimage);
+
 	    Naps.find().observe({
 	      added: function(document) {
 
@@ -169,6 +173,7 @@ Template.mapMain.onCreated(function() {
 		      if(document.approved){
 		        marker.setIcon(image);
 		      }
+
 		      var infowindow = new google.maps.InfoWindow({
 		          content: document.contentString
 		      });
@@ -186,6 +191,7 @@ Template.mapMain.onCreated(function() {
 		        $('#closePanel').addClass('toggled');
 		        $('#bottombar-wrapper').addClass('toggle-bottom');
 		        $('#map').addClass('map-toggle');
+
 	          });
 
 		      // Store this marker instance within the markers object.
@@ -223,8 +229,7 @@ Template.mapMain.onCreated(function() {
 	        markers[oldDocument._id].setMap(null);
 
 	        // Clear the event listener
-	        google.maps.event.clearInstanceListeners(
-	          markers[oldDocument._id]);
+	        google.maps.event.clearInstanceListeners(markers[oldDocument._id]);
 
 	        // Remove the reference to this marker instance
 	        delete markers[oldDocument._id];
@@ -233,10 +238,70 @@ Template.mapMain.onCreated(function() {
   	});
 });
 
+
+/**
+ * Deletes all markers from map.
+ */
+function deleteMarkers(){
+
+	for(var id in markers){
+
+		markers[id].setMap(null);
+		google.maps.event.clearInstanceListeners(markers[id]);
+		delete markers[id];
+	}
+
+}
+
 //Trigger when user changes.
 Deps.autorun(function(){
 	if(Meteor.user()){
 
+		deleteMarkers();
 
+		var naps = Naps.find().fetch();
+
+		for(var i = 0; i < naps.length; i++){
+
+			var nap = naps[i];
+
+			if(nap.approved || nap.creatorId === Meteor.user()._id || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
+
+				var marker = new google.maps.Marker({
+			        animation: google.maps.Animation.DROP,
+			        position: new google.maps.LatLng(nap.lat, nap.lng),
+			        map: GoogleMaps.maps.napMap.instance,
+			        icon: Session.get("reviewImage"),
+			        //Store the nap id
+			        id: nap._id
+	          	});
+
+	          	if(nap.approved){
+		        	marker.setIcon(Session.get("Image"));
+		      	}
+
+		      	var infowindow = new google.maps.InfoWindow({
+		          content: nap.contentString
+		      	});
+
+		      	google.maps.event.addListener(marker, 'click', function() {
+
+			        Session.set('addingNap', undefined);
+			        Session.set('editingNap', undefined);
+
+		          	//Set the session variable with the selected nap
+		          	Session.set('selectedNap', nap);
+
+			        //Get the number of nap spots of this type on campus
+			        $('#sidebar-wrapper').addClass('toggled');
+			        $('#closePanel').addClass('toggled');
+			        $('#bottombar-wrapper').addClass('toggle-bottom');
+			        $('#map').addClass('map-toggle');
+	          	});
+
+			    // Store this marker instance within the markers object.
+			    markers[nap._id] = marker;
+			}
+		}
 	}
 });
