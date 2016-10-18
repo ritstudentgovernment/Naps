@@ -100,6 +100,9 @@ function createMarker(document){
 	        //Set the session variable with the selected nap
 	        Session.set('selectedNap', document);
 
+	        //Focus selected nap.
+	        GoogleMaps.maps.napMap.instance.panTo(new google.maps.LatLng(document.lat, document.lng));
+
 		    //Get the number of nap spots of this type on campus
 		    $('#sidebar-wrapper').addClass('toggled');
 		    $('#closePanel').addClass('toggled');
