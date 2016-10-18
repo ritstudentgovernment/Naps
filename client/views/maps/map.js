@@ -52,6 +52,68 @@ Meteor.startup(function() {
 });
 
 
+/**
+ * Deletes all markers from map.
+ */
+function deleteMarkers(){
+
+	for(var id in markers){
+
+		markers[id].setMap(null);
+		google.maps.event.clearInstanceListeners(markers[id]);
+		delete markers[id];
+	}
+
+}
+
+
+/**
+ * Creates a marker and adds it to the map.
+ * @param  Object document a Nap object.
+ */
+function createMarker(document){
+
+	if(document.approved || document.creatorId === Meteor.user()._id || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
+
+	    var marker = new google.maps.Marker({
+		    animation: google.maps.Animation.DROP,
+		    position: new google.maps.LatLng(document.lat, document.lng),
+		    map: GoogleMaps.maps.napMap.instance,
+		    icon: Session.get("reviewImage"),
+		    //Store the document id
+		    id: document._id
+	    });
+
+		if(document.approved){
+		    marker.setIcon(Session.get("Image"));
+		}
+
+		var infowindow = new google.maps.InfoWindow({
+		    content: document.contentString
+		});
+
+	    google.maps.event.addListener(marker, 'click', function() {
+
+		    Session.set('addingNap', undefined);
+		    Session.set('editingNap', undefined);
+
+	        //Set the session variable with the selected nap
+	        Session.set('selectedNap', document);
+
+		    //Get the number of nap spots of this type on campus
+		    $('#sidebar-wrapper').addClass('toggled');
+		    $('#closePanel').addClass('toggled');
+		    $('#bottombar-wrapper').addClass('toggle-bottom');
+		    $('#map').addClass('map-toggle');
+
+	    });
+
+		// Store this marker instance within the markers object.
+		markers[document._id] = marker;
+	}
+}
+
+
 Template.mapMain.onCreated(function() {
 
   	GoogleMaps.ready('napMap', function(map) {
@@ -157,46 +219,10 @@ Template.mapMain.onCreated(function() {
 	    Session.set("reviewImage", reviewimage);
 
 	    Naps.find().observe({
-	      added: function(document) {
+	      added: function(doc) {
 
-	        if(document.approved || document.creatorId === Meteor.user()._id || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
-	          
-	          var marker = new google.maps.Marker({
-		        animation: google.maps.Animation.DROP,
-		        position: new google.maps.LatLng(document.lat, document.lng),
-		        map: map.instance,
-		        icon: reviewimage,
-		        //Store the document id
-		        id: document._id
-	          });
+	      	createMarker(doc);
 
-		      if(document.approved){
-		        marker.setIcon(image);
-		      }
-
-		      var infowindow = new google.maps.InfoWindow({
-		          content: document.contentString
-		      });
-
-	          google.maps.event.addListener(marker, 'click', function() {
-
-		        Session.set('addingNap', undefined);
-		        Session.set('editingNap', undefined);
-
-	          	//Set the session variable with the selected nap
-	          	Session.set('selectedNap', document);
-
-		        //Get the number of nap spots of this type on campus
-		        $('#sidebar-wrapper').addClass('toggled');
-		        $('#closePanel').addClass('toggled');
-		        $('#bottombar-wrapper').addClass('toggle-bottom');
-		        $('#map').addClass('map-toggle');
-
-	          });
-
-		      // Store this marker instance within the markers object.
-		      markers[document._id] = marker;
-	        }
 	      },
 	      changed: function(newDocument, oldDocument) {
 	        
@@ -239,19 +265,6 @@ Template.mapMain.onCreated(function() {
 });
 
 
-/**
- * Deletes all markers from map.
- */
-function deleteMarkers(){
-
-	for(var id in markers){
-
-		markers[id].setMap(null);
-		google.maps.event.clearInstanceListeners(markers[id]);
-		delete markers[id];
-	}
-
-}
 
 //Trigger when user changes.
 Deps.autorun(function(){
@@ -264,44 +277,8 @@ Deps.autorun(function(){
 		for(var i = 0; i < naps.length; i++){
 
 			var nap = naps[i];
-
-			if(nap.approved || nap.creatorId === Meteor.user()._id || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
-
-				var marker = new google.maps.Marker({
-			        animation: google.maps.Animation.DROP,
-			        position: new google.maps.LatLng(nap.lat, nap.lng),
-			        map: GoogleMaps.maps.napMap.instance,
-			        icon: Session.get("reviewImage"),
-			        //Store the nap id
-			        id: nap._id
-	          	});
-
-	          	if(nap.approved){
-		        	marker.setIcon(Session.get("Image"));
-		      	}
-
-		      	var infowindow = new google.maps.InfoWindow({
-		          content: nap.contentString
-		      	});
-
-		      	google.maps.event.addListener(marker, 'click', function() {
-
-			        Session.set('addingNap', undefined);
-			        Session.set('editingNap', undefined);
-
-		          	//Set the session variable with the selected nap
-		          	Session.set('selectedNap', nap);
-
-			        //Get the number of nap spots of this type on campus
-			        $('#sidebar-wrapper').addClass('toggled');
-			        $('#closePanel').addClass('toggled');
-			        $('#bottombar-wrapper').addClass('toggle-bottom');
-			        $('#map').addClass('map-toggle');
-	          	});
-
-			    // Store this marker instance within the markers object.
-			    markers[nap._id] = marker;
-			}
+			createMarker(nap);
+			
 		}
 	}
 });
