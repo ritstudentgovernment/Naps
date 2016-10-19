@@ -73,7 +73,7 @@ function deleteMarkers(){
  */
 function createMarker(document){
 
-	if(document.approved || document.creatorId === Meteor.user()._id || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
+	if(document.approved || document.creatorId === Meteor.userId() || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
 
 	    var marker = new google.maps.Marker({
 		    animation: google.maps.Animation.DROP,
@@ -267,21 +267,27 @@ Template.mapMain.onCreated(function() {
   	});
 });
 
+//Trigger user change.
+var oldUser = undefined;
 
+Tracker.autorun(function(){
 
-//Trigger when user changes.
-Deps.autorun(function(){
-	if(Meteor.user()){
+	var newUser = Meteor.user();
 
-		deleteMarkers();
+	if(oldUser === null && newUser){
+
+	    deleteMarkers();
 
 		var naps = Naps.find().fetch();
 
 		for(var i = 0; i < naps.length; i++){
 
 			var nap = naps[i];
-			createMarker(nap);
-			
+
+			createMarker(nap);			
 		}
+		
 	}
+
+	oldUser = Meteor.user();
 });
