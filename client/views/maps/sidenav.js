@@ -13,7 +13,7 @@ Template.sidenav.events({
     Session.set('selectedNap', false);
     Session.set('editingNap', Naps.findOne(id));
   },
-  'click #remove':function(e){
+  'click #deny':function(e){
     var id = e.target.getAttribute('napid');
     var nap = Naps.findOne(id);
     var napLink = Meteor.absoluteUrl() + 'nap/' + id;
@@ -70,5 +70,16 @@ Template.sidenav.events({
     $('#map').removeClass('map-toggle');
 
     throwError("Nap Spot was succesfully approved.");
+  },
+  'click #remove': function(e){
+
+    var id = e.target.getAttribute('napid');
+    Naps.remove(id);
+    $('#closePanel').removeClass('toggled');
+    $('#sidebar-wrapper').removeClass('toggled');
+    $('#bottombar-wrapper').removeClass('toggle-bottom');
+    $('#map').removeClass('map-toggle');
+
+    throwError("Nap Spot was succesfully removed.");
   }
 });
