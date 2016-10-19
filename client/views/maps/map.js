@@ -53,21 +53,6 @@ Meteor.startup(function() {
 
 
 /**
- * Deletes all markers from map.
- */
-function deleteMarkers(){
-
-	for(var id in markers){
-
-		markers[id].setMap(null);
-		google.maps.event.clearInstanceListeners(markers[id]);
-		delete markers[id];
-	}
-
-}
-
-
-/**
  * Creates a marker and adds it to the map.
  * @param  Object document a Nap object.
  */
@@ -114,6 +99,21 @@ function createMarker(document){
 		// Store this marker instance within the markers object.
 		markers[document._id] = marker;
 	}
+}
+
+
+/**
+ * Deletes all markers from map.
+ */
+function deleteMarkers(){
+
+	for(var id in markers){
+
+		markers[id].setMap(null);
+		google.maps.event.clearInstanceListeners(markers[id]);
+		delete markers[id];
+	}
+
 }
 
 
@@ -274,7 +274,8 @@ Tracker.autorun(function(){
 
 	var newUser = Meteor.user();
 
-	if(oldUser === null && newUser){
+	//Check if user logged in or out.
+	if(oldUser === null && newUser || newUser === null && oldUser){
 
 	    deleteMarkers();
 
@@ -290,4 +291,5 @@ Tracker.autorun(function(){
 	}
 
 	oldUser = Meteor.user();
+
 });
