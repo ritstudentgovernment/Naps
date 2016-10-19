@@ -2,5 +2,13 @@
     <div class="side-header">
       <h3 class="no-margin">{{spot_type}}</h3>
       <p class="no-margin">{{napCount spot_type}} nap spot(s) of this type</p>
+      <h4>Quiet Level</h4>
+      <div class="progress">
+		 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: calc({{qlvl}} * 10%);">
+		 	 {{qlvl}}/10 Quietness.
+		 </div>
+	  </div>
+      <h4>Notes</h4>
+      <p class="no-margin">{{notes}}</p>
     </div>
 </template>
