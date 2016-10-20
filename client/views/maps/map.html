@@ -25,10 +25,15 @@
   </div>
   <div id="bottombar-wrapper" class="visible-xs">
       {{#if selectedNap}}
-        <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+          <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
           {{#with selectedNap}}
             {{> mobileNap}}
           {{/with}}
+      {{/if}}
+      {{#if editingNap}}
+        {{#with editingNap}}
+          {{> editNap}}
+        {{/with}}
       {{/if}}
   </div>
 </template>
