@@ -8,11 +8,6 @@ Template.mobileNap.helpers({
 })
 
 Template.mobileNap.events({
-  'click #edit':function(e){
-    var id = e.target.getAttribute('napid');
-    Session.set('selectedNap', false);
-    Session.set('editingNap', Naps.findOne(id));
-  },
   'click #deny':function(e){
     var id = e.target.getAttribute('napid');
     var nap = Naps.findOne(id);
