@@ -30,6 +30,11 @@ Template.mapMain.events({
 
     }
 
+  },
+  'click #closeImg':function(){
+  	console.log("clicked");
+  	$('#map').show();
+  	Session.set('previewImg', false);
   }
 });
 
@@ -43,6 +48,9 @@ Template.mapMain.helpers({
     },
     editingNap: function(){
       return Session.get('editingNap');
+    },
+    previewImg: function(){
+    	return Session.get('previewImg');
     }
 });
 

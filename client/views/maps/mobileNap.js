@@ -8,6 +8,13 @@ Template.mobileNap.helpers({
 })
 
 Template.mobileNap.events({
+  'click #previewImg':function(e){
+    var id = e.target.getAttribute('napid');
+    var nap = Naps.findOne(id);
+    var img = NapsFS.findOne(nap.picture);
+    $('#map').hide();
+    Session.set('previewImg', img.url());
+  },
   'click #deny':function(e){
     var id = e.target.getAttribute('napid');
     var nap = Naps.findOne(id);

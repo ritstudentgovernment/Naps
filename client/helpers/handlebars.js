@@ -50,7 +50,7 @@ Handlebars.registerHelper('napURL', function (id) {
   return img ? img.url() : "";
 });
 
-Handlebars.registerHelper('canReview', function () {
+Handlebars.registerHelper('canReview', function() {
   if(Roles.userIsInRole(Meteor.userId(), ['reviewer','admin'])){
     return true;
   }
@@ -58,6 +58,7 @@ Handlebars.registerHelper('canReview', function () {
     return false;
   }
 });
+
 
 function getEvaluationObject () {
   var singleton = Singleton.findOne();
