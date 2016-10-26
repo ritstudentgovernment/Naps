@@ -25,7 +25,7 @@ Dependencies
 4. Install GraphicsMagick through <code>./configure LDFLAGS=-L/usr/local/lib CPPFLAGS=-I/usr/local/include</code> and <code>sudo make && make install</code>
 5. Add to Meteor <code>meteor add cfs:graphicsmagick</code>
 
-(Repeat 3 and for any new delegate included.)
+(Repeat 3 and 4 for any new delegate included.)
 
 License
 =======
