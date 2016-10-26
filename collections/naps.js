@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////
+///                                     naps.js
+///
+///Author       : Omar De La Hoz (oed7416@rit.edu)
+///Description  : Collection for nap objects.
+///Date Created : 09/21/16
+///updated      : 10/25/16
+////////////////////////////////////////////////////////////////////////////////
+
 Naps = new Mongo.Collection('naps');
 
 Naps.attachSchema( new SimpleSchema({
@@ -65,9 +74,7 @@ Naps.allow({
 NapsFS = new FS.Collection('napsFS', {
 	stores: [new FS.Store.FileSystem('napsFS', {
 		transformWrite: function(fileObj, readStream, writeStream) {
-
 			gm(readStream, fileObj.name).autoOrient().stream().pipe(writeStream);
-
 		}
 	})]
 });
