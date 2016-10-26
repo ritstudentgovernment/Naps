@@ -16,11 +16,16 @@ Usage (Local Development)
 Dependencies
 ============
 
-- Download [GraphicsMagick]
-- Download [JPEG and PNG delegates] (Preferably jpegsrc.v9a.tar.gz, openjpeg-2.0.0.tar.gz and libpng-1.6.24.tar.gz)
-- Install delegates through <code>./configure</code> and <code>sudo make && make install</code>
-- Install GraphicsMagick through <code>./configure LDFLAGS=-L/usr/local/lib CPPFLAGS=-I/usr/local/include</code> and <code>sudo make && make install</code>
-- Add to Meteor <code>meteor add cfs:graphicsmagick</code>
+1. Download [GraphicsMagick]
+2. Download [JPEG and PNG delegates]
+  - (JPEG) jpegsrc.v9a.tar.gz
+  - (JPEG-2000) openjpeg-2.0.0.tar.gz
+  - (PNG) libpng-1.6.24.tar.gz
+3. Install delegates through <code>./configure</code> and <code>sudo make && make install</code>
+4. Install GraphicsMagick through <code>./configure LDFLAGS=-L/usr/local/lib CPPFLAGS=-I/usr/local/include</code> and <code>sudo make && make install</code>
+5. Add to Meteor <code>meteor add cfs:graphicsmagick</code>
+
+(Repeat 3 and for any new delegate included.)
 
 License
 =======
