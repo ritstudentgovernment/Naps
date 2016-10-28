@@ -1,19 +1,31 @@
+////////////////////////////////////////////////////////////////////////////////
+///                   sendEmail.js
+///
+///Author:       Omar De La Hoz
+///Description:  Send email to users and moderators.
+///Date Created: 10/11/16 
+///updated:      10/28/16
+////////////////////////////////////////////////////////////////////////////////
+
 Meteor.methods({
 emailUser: function(email, emailData, actionType){
 
+  //Compile the HTML tmeplates.
   SSR.compileTemplate('newNap', Assets.getText('newNap.html'));
   SSR.compileTemplate('approveNap', Assets.getText('approveNap.html'));
   SSR.compileTemplate('denyNap', Assets.getText('denyNap.html'));
   SSR.compileTemplate('reviewNap', Assets.getText('reviewNap.html'));
 
-
+  //Get the Nap creator.
   var creator = Meteor.users.findOne({"_id": emailData.creatorId});
 
+  //Generate email creator unsub link.
   email = creator.username + "@rit.edu";
   emailData.name = creator.username;
   emailData.likesEmail = creator.likesEmail;
   emailData.unsubLink = Meteor.absoluteUrl() + 'unsubscribe/' + creator._id;
 
+  // Send email depending on action type.
   if(actionType == "napAdded"){
 
     if(emailData.likesEmail){
