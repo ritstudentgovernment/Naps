@@ -1,6 +1,13 @@
 <template name="mobileNap">
     <div class="side-header">
-      <h3 class="no-margin">{{spot_type}} <button napId="{{_id}}" id="previewImg">previewimg</button></h3>
+      <h3 class="no-margin">
+	      {{spot_type}}
+	      {{#if picture}}
+	      	<button class="btn-min">
+	      		<span id="previewImg" napId="{{_id}}" class="glyphicon glyphicon-picture"></span>
+	      	</button>
+	      {{/if}}
+      </h3>
       <p class="no-margin">{{napCount spot_type}} nap spot(s) of this type</p>
       <p class="no-margin">Size: {{size}}</p>
       <p class="no-margin">Quiet Level: {{qlvl}}</p>
