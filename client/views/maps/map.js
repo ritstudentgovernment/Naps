@@ -32,7 +32,6 @@ Template.mapMain.events({
 
   },
   'click #closeImg':function(){
-  	console.log("clicked");
   	$('#map').show();
   	Session.set('previewImg', false);
   }
@@ -201,30 +200,30 @@ Template.mapMain.onCreated(function() {
 
 	    var image = {
 	      url: '/napmarker.png',
-	      size: new google.maps.Size(2000, 3000),
+	      size: new google.maps.Size(1890, 1906),
 	      origin: new google.maps.Point(0, 0),
 	      anchor: new google.maps.Point(17, 34),
-	      scaledSize: new google.maps.Size(25, 35)
+	      scaledSize: new google.maps.Size(30, 40)
 	    };
 
 	    Session.set("Image", image);
 
 	    var previewimage = {
 	        url: '/previewmarker.png',
-	        size: new google.maps.Size(2000, 3000),
+	        size: new google.maps.Size(1890, 1906),
 	        origin: new google.maps.Point(0, 0),
 	        anchor: new google.maps.Point(17, 34),
-	        scaledSize: new google.maps.Size(25, 35)
+	        scaledSize: new google.maps.Size(30, 40)
 	    };
 
     	Session.set("previewImage", previewimage);
 
 	    var reviewimage = {
 	      url: '/reviewmarker.png',
-	      size: new google.maps.Size(2000, 3000),
+	      size: new google.maps.Size(1890, 1906),
 	      origin: new google.maps.Point(0, 0),
 	      anchor: new google.maps.Point(17, 34),
-	      scaledSize: new google.maps.Size(25, 35)
+	      scaledSize: new google.maps.Size(30, 40)
 	    };
 
 	    Session.set("reviewImage", reviewimage);
