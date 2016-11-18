@@ -1,17 +1,17 @@
 Meteor.startup(function() {
+  
   // Initialize admin user
   if (Meteor.users.find().count() === 0) {
     var adminUser = Meteor.users.insert({
-      username: "sgweb",
+      username: "oed7416",
       identity: {
-        name: "James Reilly",
-        firstName: "James",
-        lastName: "Reilly",
+        name: "Omar De La Hoz",
+        firstName: "Omar",
+        lastName: "De La Hoz",
       },
       evaluationCounts: [],
       sectionIds: []
     });
-    Roles.addUsersToRoles(adminUser, ['reviewer']);
-
+    Roles.addUsersToRoles(adminUser, ['admin']);
   }
 });
