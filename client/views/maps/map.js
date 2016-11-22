@@ -131,11 +131,12 @@ Template.mapMain.onCreated(function() {
   GoogleMaps.ready('napMap', function(map) {
 
     var allowedBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(43.076, -77.691),
-      new google.maps.LatLng(43.094, -77.651));
+      new google.maps.LatLng(43.08138,-77.68277),
+      new google.maps.LatLng(43.087664,-77.666849)
+    );
 
     //Check for dragging map outside campus
-    google.maps.event.addListener(map.instance, 'dragend', function() {
+    google.maps.event.addListener(map.instance, 'bounds_changed', function() {
 
       if (allowedBounds.contains(map.instance.getCenter())) return;
 
@@ -182,7 +183,7 @@ Template.mapMain.onCreated(function() {
           map: map.instance
         });
 
-        google.maps.event.addListener(marker, 'dragend', function(event){
+        google.maps.event.addListener(marker, 'bounds_changed', function(event){
           $('input[name=lat]').val(event.latLng.lat());
           $('input[name=lng]').val(event.latLng.lng());
         });
