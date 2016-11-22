@@ -11,10 +11,11 @@ Template.mapMain.events({
     $('#bottombar-wrapper').removeClass('toggle-bottom');
     $('#map').removeClass('map-toggle');
 
-    //Remove session variables
+    // Remove session variables
     Session.set('addingNap', undefined);
     Session.set('selectedNap', undefined);
 
+    // Move marker back to its original position.
     if(Session.get("editingNap")){
       var id = Session.get("editingNap")._id;
       var nap = Naps.findOne(id);
@@ -23,17 +24,17 @@ Template.mapMain.events({
       Session.set('editingNap', undefined);
     }
 
+    // Delete the preview marker.
     if(previewMarker.length){
 
       previewMarker[0].setMap(null);
       previewMarker = [];
 
     }
-
   },
   'click #closeImg':function(){
-  	$('#map').show();
-  	Session.set('previewImg', false);
+    $('#map').show();
+    Session.set('previewImg', false);
   }
 });
 
@@ -49,11 +50,12 @@ Template.mapMain.helpers({
       return Session.get('editingNap');
     },
     previewImg: function(){
-    	return Session.get('previewImg');
+      return Session.get('previewImg');
     }
 });
 
 
+// Start the Map on meteor startup.
 Meteor.startup(function() {
   GoogleMaps.load({key: Meteor.settings.public.MAPSKEY});
 });
@@ -65,47 +67,47 @@ Meteor.startup(function() {
  */
 function createMarker(document){
 
-	if(document.approved || document.creatorId === Meteor.userId() || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
+  if(document.approved || document.creatorId === Meteor.userId() || Roles.userIsInRole(Meteor.user(), ['admin','reviewer'])){
 
-	    var marker = new google.maps.Marker({
-		    animation: google.maps.Animation.DROP,
-		    position: new google.maps.LatLng(document.lat, document.lng),
-		    map: GoogleMaps.maps.napMap.instance,
-		    icon: Session.get("reviewImage"),
-		    //Store the document id
-		    id: document._id
-	    });
+      var marker = new google.maps.Marker({
+        animation: google.maps.Animation.DROP,
+        position: new google.maps.LatLng(document.lat, document.lng),
+        map: GoogleMaps.maps.napMap.instance,
+        icon: Session.get("reviewImage"),
+        //Store the document id
+        id: document._id
+      });
 
-		if(document.approved){
-		    marker.setIcon(Session.get("Image"));
-		}
+    if(document.approved){
+        marker.setIcon(Session.get("Image"));
+    }
 
-		var infowindow = new google.maps.InfoWindow({
-		    content: document.contentString
-		});
+    var infowindow = new google.maps.InfoWindow({
+        content: document.contentString
+    });
 
-	    google.maps.event.addListener(marker, 'click', function() {
+      google.maps.event.addListener(marker, 'click', function() {
 
-		    Session.set('addingNap', undefined);
-		    Session.set('editingNap', undefined);
+        Session.set('addingNap', undefined);
+        Session.set('editingNap', undefined);
 
-	        //Set the session variable with the selected nap
-	        Session.set('selectedNap', document);
+          //Set the session variable with the selected nap
+          Session.set('selectedNap', document);
 
-	        //Focus selected nap.
-	        GoogleMaps.maps.napMap.instance.panTo(new google.maps.LatLng(document.lat, document.lng));
+          //Focus selected nap.
+          GoogleMaps.maps.napMap.instance.panTo(new google.maps.LatLng(document.lat, document.lng));
 
-		    //Get the number of nap spots of this type on campus
-		    $('#sidebar-wrapper').addClass('toggled');
-		    $('#closePanel').addClass('toggled');
-		    $('#bottombar-wrapper').addClass('toggle-bottom');
-		    $('#map').addClass('map-toggle');
+        //Get the number of nap spots of this type on campus
+        $('#sidebar-wrapper').addClass('toggled');
+        $('#closePanel').addClass('toggled');
+        $('#bottombar-wrapper').addClass('toggle-bottom');
+        $('#map').addClass('map-toggle');
 
-	    });
+      });
 
-		// Store this marker instance within the markers object.
-		markers[document._id] = marker;
-	}
+    // Store this marker instance within the markers object.
+    markers[document._id] = marker;
+  }
 }
 
 
@@ -114,189 +116,193 @@ function createMarker(document){
  */
 function deleteMarkers(){
 
-	for(var id in markers){
+  for(var id in markers){
 
-		markers[id].setMap(null);
-		google.maps.event.clearInstanceListeners(markers[id]);
-		delete markers[id];
-	}
+    markers[id].setMap(null);
+    google.maps.event.clearInstanceListeners(markers[id]);
+    delete markers[id];
+  }
 
 }
 
 
 Template.mapMain.onCreated(function() {
 
-  	GoogleMaps.ready('napMap', function(map) {
+  GoogleMaps.ready('napMap', function(map) {
 
-	    var allowedBounds = new google.maps.LatLngBounds(
-	      new google.maps.LatLng(43.076, -77.691),
-	      new google.maps.LatLng(43.094, -77.651)
-	    );
+    var allowedBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(43.076, -77.691),
+      new google.maps.LatLng(43.094, -77.651));
 
-	    //Check for dragging map outside campus
-	    google.maps.event.addListener(map.instance, 'dragend', function() {
+    //Check for dragging map outside campus
+    google.maps.event.addListener(map.instance, 'dragend', function() {
 
-	      	if (allowedBounds.contains(map.instance.getCenter())) return;
+      if (allowedBounds.contains(map.instance.getCenter())) return;
 
-	     	// Out of bounds - Move the map back within the bounds
-	      	var c = map.instance.getCenter(),
-	        x = c.lng(),
-	        y = c.lat(),
-	        maxX = allowedBounds.getNorthEast().lng(),
-	        maxY = allowedBounds.getNorthEast().lat(),
-	        minX = allowedBounds.getSouthWest().lng(),
-	        minY = allowedBounds.getSouthWest().lat();
+     // Out of bounds - Move the map back within the bounds
+      var c = map.instance.getCenter(),
+        x = c.lng(),
+        y = c.lat(),
+        maxX = allowedBounds.getNorthEast().lng(),
+        maxY = allowedBounds.getNorthEast().lat(),
+        minX = allowedBounds.getSouthWest().lng(),
+        minY = allowedBounds.getSouthWest().lat();
 
-		    if (x < minX) x = minX;
-		    if (x > maxX) x = maxX;
-		    if (y < minY) y = minY;
-		    if (y > maxY) y = maxY;
+      if (x < minX) x = minX;
+      if (x > maxX) x = maxX;
+      if (y < minY) y = minY;
+      if (y > maxY) y = maxY;
+      map.instance.setCenter(new google.maps.LatLng(y, x));
+  });
 
-	    	map.instance.setCenter(new google.maps.LatLng(y, x));
-	    });
 
-	    // Limit the zoom level
-	    google.maps.event.addListener(map.instance, 'zoom_changed', function() {
-	      if (map.instance.getZoom() < 15) map.instance.setZoom(15);
-	    });
+   // Limit the zoom level
+  google.maps.event.addListener(map.instance, 'zoom_changed', function() {
+    if (map.instance.getZoom() < 15) map.instance.setZoom(15);
+  });
 
-	    google.maps.event.addListener(map.instance, 'click', function(event) {
 
-	      	if(Session.get('addingNap')){
+  google.maps.event.addListener(map.instance, 'click', function(event) {
 
-		        $('input[name=lat]').val(event.latLng.lat());
-		        $('input[name=lng]').val(event.latLng.lng());
+    if(Session.get('addingNap')){
+      $('input[name=lat]').val(event.latLng.lat());
+      $('input[name=lng]').val(event.latLng.lng());
 
-	        	if(previewMarker[0]){
+      if(previewMarker[0]){
 
-	          		previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-	        	}
-	        	else{
+        previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+      }
+      else{
 
-			        var marker = new google.maps.Marker({
-			            draggable: true,
-			            animation: google.maps.Animation.DROP,
-			            position: event.latLng,
-			            icon: previewimage,
-			            map: map.instance
-			        });
+        var marker = new google.maps.Marker({
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: event.latLng,
+          icon: previewimage,
+          map: map.instance
+        });
 
-		          	google.maps.event.addListener(marker, 'dragend', function(event){
-			            $('input[name=lat]').val(event.latLng.lat());
-			            $('input[name=lng]').val(event.latLng.lng());
-		          	});
+        google.maps.event.addListener(marker, 'dragend', function(event){
+          $('input[name=lat]').val(event.latLng.lat());
+          $('input[name=lng]').val(event.latLng.lng());
+        });
 
-	          		previewMarker[0] = marker;
-	        	}
-	      	}
-	      	else if(Session.get('editingNap')){
+        previewMarker[0] = marker;
+      }
+    }
+    else if(Session.get('editingNap')){
 
-		        $('input[name=lat]').val(event.latLng.lat());
-		        $('input[name=lng]').val(event.latLng.lng());
+      $('input[name=lat]').val(event.latLng.lat());
+      $('input[name=lng]').val(event.latLng.lng());
 
-	        	markers[Session.get('editingNap')._id].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-	      	}
-	    });
+      markers[Session.get('editingNap')._id].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    }
+  });
 
-	    var image = {
-	      url: '/napmarker.png',
-	      size: new google.maps.Size(1890, 1906),
-	      origin: new google.maps.Point(0, 0),
-	      anchor: new google.maps.Point(17, 34),
-	      scaledSize: new google.maps.Size(30, 40)
-	    };
+  var image = {
+    url: '/napmarker.png',
+    size: new google.maps.Size(200, 200),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(15, 35),
+    scaledSize: new google.maps.Size(30, 35)
+  };
 
-	    Session.set("Image", image);
+  Session.set("Image", image);
 
-	    var previewimage = {
-	        url: '/previewmarker.png',
-	        size: new google.maps.Size(1890, 1906),
-	        origin: new google.maps.Point(0, 0),
-	        anchor: new google.maps.Point(17, 34),
-	        scaledSize: new google.maps.Size(30, 40)
-	    };
+  var previewimage = {
+    url: '/previewmarker.png',
+    size: new google.maps.Size(200, 200),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(15, 35),
+    scaledSize: new google.maps.Size(30, 35)
+  };
 
-    	Session.set("previewImage", previewimage);
+  Session.set("previewImage", previewimage);
 
-	    var reviewimage = {
-	      url: '/reviewmarker.png',
-	      size: new google.maps.Size(1890, 1906),
-	      origin: new google.maps.Point(0, 0),
-	      anchor: new google.maps.Point(17, 34),
-	      scaledSize: new google.maps.Size(30, 40)
-	    };
+  var reviewimage = {
+    url: '/reviewmarker.png',
+    size: new google.maps.Size(200, 200),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(15, 35),
+    scaledSize: new google.maps.Size(30, 35)
+  };
 
-	    Session.set("reviewImage", reviewimage);
+  Session.set("reviewImage", reviewimage);
 
-	    Naps.find().observe({
-	      added: function(doc) {
 
-	      	createMarker(doc);
+  Naps.find().observe({
+    added: function(document) {
 
-	      },
-	      changed: function(newDocument, oldDocument) {
-	        
-	        if(newDocument.approved){
-	          markers[newDocument._id].setIcon(image);
-	        }
-	        else{
-	          markers[newDocument._id].setIcon(reviewimage);
-	        }
+      createMarker(document);
 
-	        google.maps.event.addListener(markers[newDocument._id], 'click', function() {
-	          Session.set('addingNap', undefined);
-	          Session.set('editingNap', undefined);
-	          //Set the session variable with the selected nap
-	          Session.set('selectedNap', newDocument);
-	          //Get the number of nap spots of this type on campus
-	          $('#sidebar-wrapper').addClass('toggled');
-	          $('#closePanel').addClass('toggled');
-	          $('#bottombar-wrapper').addClass('toggle-bottom');
-	          $('#map').addClass('map-toggle');
-	        });
+    },
+    changed: function(newDocument, oldDocument) {
 
-	        Session.set('selectedNap', newDocument);
+      if(newDocument.approved){
 
-	        markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+        markers[newDocument._id].setIcon(image);
+      }
+      else{
 
-	      },
-	      removed: function(oldDocument) {
-	        // Remove the marker from the map
-	        markers[oldDocument._id].setMap(null);
+        markers[newDocument._id].setIcon(reviewimage);
+      }
 
-	        // Clear the event listener
-	        google.maps.event.clearInstanceListeners(markers[oldDocument._id]);
+      google.maps.event.clearListeners(markers[newDocument._id], 'click');
 
-	        // Remove the reference to this marker instance
-	        delete markers[oldDocument._id];
-	      }
-	    });
-  	});
+      google.maps.event.addListener(markers[newDocument._id], 'click', function() {
+            Session.set('addingNap', undefined);
+            Session.set('editingNap', undefined);
+            //Set the session variable with the selected nap
+            Session.set('selectedNap', newDocument);
+            //Get the number of nap spots of this type on campus
+            $('#sidebar-wrapper').addClass('toggled');
+            $('#closePanel').addClass('toggled');
+            $('#bottombar-wrapper').addClass('toggle-bottom');
+            $('#map').addClass('map-toggle');
+      });
+
+
+      markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+    },
+    removed: function(oldDocument) {
+      // Remove the marker from the map
+      markers[oldDocument._id].setMap(null);
+
+      // Clear the event listener
+      google.maps.event.clearInstanceListeners(
+        markers[oldDocument._id]);
+
+      // Remove the reference to this marker instance
+      delete markers[oldDocument._id];
+    }
+  });
+  });
 });
+
 
 //Trigger user change.
 var oldUser = undefined;
 
 Tracker.autorun(function(){
 
-	var newUser = Meteor.user();
+  var newUser = Meteor.user();
 
-	//Check if user logged in or out.
-	if(oldUser === null && newUser || newUser === null && oldUser){
+  //Check if user logged in or out.
+  if(oldUser === null && newUser || newUser === null && oldUser){
 
-	    deleteMarkers();
+      deleteMarkers();
 
-		var naps = Naps.find().fetch();
+    var naps = Naps.find().fetch();
 
-		for(var i = 0; i < naps.length; i++){
+    for(var i = 0; i < naps.length; i++){
 
-			var nap = naps[i];
+      var nap = naps[i];
 
-			createMarker(nap);			
-		}
-		
-	}
+      createMarker(nap);      
+    }
+    
+  }
 
-	oldUser = Meteor.user();
+  oldUser = Meteor.user();
 
 });
