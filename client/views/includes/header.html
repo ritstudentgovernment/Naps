@@ -2,7 +2,7 @@
   <nav class="header-background navbar navbar-default" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{pathFor 'index'}}">
+        <a class="navbar-brand" href="/">
             <img src="/logo.svg"/>
         </a>
         <button type="button"
@@ -25,7 +25,7 @@
           </li>
           {{#if currentUser }}
           <li class="hidden-xs">
-            <a id="addNap" href="">
+            <a id="addNap" href="/addingNap">
               <span class="glyphicon glyphicon-plus"></span>
               Add an Entry
             </a>

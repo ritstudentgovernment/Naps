@@ -15,11 +15,14 @@ var hooksObject = {
 
       }
 
+      //Change url to the index.
+      history.pushState({}, null, '/');
+
       if(Roles.userIsInRole(Meteor.userId(), ['reviewer','admin'])){
 
         //Throw success message
+        Session.set('addingNap', false);
         throwError("Your Nap Spot was successfully added.");
-
       }
       else{
 

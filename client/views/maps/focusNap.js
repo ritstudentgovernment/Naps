@@ -1,7 +1,7 @@
 Template.focusNap.onRendered(function(){
 
 	if(Session.get("selectedNap")){
-
+		
 		var lat = parseFloat(Session.get("selectedNap").lat);
 		var lng = parseFloat(Session.get("selectedNap").lng);
 
