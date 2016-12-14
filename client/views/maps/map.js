@@ -276,7 +276,6 @@ Template.mapMain.onCreated(function() {
   });
 });
 
-
 //Trigger user change.
 var oldUser = undefined;
 
