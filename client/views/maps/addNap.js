@@ -46,7 +46,6 @@ Template.addNap.events({
         map.instance.setCenter(new google.maps.LatLng(y, x));
       });
 
-
       // Respond to user clicks only of there is a marker.
       google.maps.event.addListener(map.instance, 'click', function(event) {
         
@@ -55,17 +54,15 @@ Template.addNap.events({
           previewMarker[0].setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
         }
       });
-
-
-      // If user hasn't opened modal before, get current location
-      // and focus it in map.
-      if(previewMarker.length === 0){
-
-        // Request current position.
-        window.navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
-      }
-
     });
+
+    // Get current location when user opes modal and focus on it.
+    if(!previewMarker[0]){
+
+      // Request current position.
+      window.navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
+    }
+
   },
   'click #setLoc': function(){
 
@@ -79,6 +76,15 @@ Template.addNap.events({
     // Close modal and throw success message.
     throwError("Location has been set.");
     $('.close').click();
+  },
+  'click #cancel': function(){
+
+    if(previewMarker[0]){
+
+      previewMarker[0].setMap(null);
+      delete previewMarker[0];
+      $('.close').click();
+    }
   }
 });
 

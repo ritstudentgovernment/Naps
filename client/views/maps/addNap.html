@@ -23,11 +23,11 @@
   </div>
 
   <!-- Modal location picker for Naps Mobile -->
-  <div class="modal fade" id="mapModal">
+  <div class="modal fade" id="mapModal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <button id="cancel" type="button" class="close" data-dismiss="modal">×</button>
           <h4 class="modal-title">Select Location</h4>
         </div>
         <div class="modal-body">
@@ -42,7 +42,7 @@
           <span class="glyphicon glyphicon-screenshot"></span>
           Get Location
           </button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id="cancel" type="button" class="btn btn-default">Cancel</button>
           <button id="setLoc" type="button" class="btn btn-primary">Set</button>
         </div>
       </div>
