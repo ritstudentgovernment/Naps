@@ -31,6 +31,11 @@ Template.mapMain.events({
       previewMarker = [];
 
     }
+
+    google.maps.event.clearInstanceListeners(window);
+    google.maps.event.clearInstanceListeners(document);
+    google.maps.event.clearInstanceListeners(GoogleMaps.maps.pickerMap.instance);
+    $("mapModal").detach();
   },
   'click #closeImg':function(){
     $('#map').show();

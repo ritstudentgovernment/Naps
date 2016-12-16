@@ -4,6 +4,7 @@ Template.header.helpers({
   }
 });
 
+
 Template.header.events({
   'click #addNap':function(){
     Session.set('addingNap', true);
@@ -11,3 +12,4 @@ Template.header.events({
     $('#closePanel').addClass('toggled');
   }
 })
+

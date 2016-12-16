@@ -22,6 +22,7 @@
     {{/autoForm}}
   </div>
 
+
   <!-- Modal location picker for Naps Mobile -->
   <div class="modal fade" id="mapModal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
@@ -33,7 +34,7 @@
         <div class="modal-body">
           <div class="container">
             <div class="map-canvas" style="width: 100%; height: 300px">
-              {{> googleMap name="napMap" options=exampleMapOptions}}
+              {{> googleMap name="pickerMap" options=exampleMapOptions}}
             </div>
           </div>
         </div>
@@ -53,7 +54,12 @@
   <script>
     $(document).ready(function(){
         $("#mapModal").on('shown.bs.modal', function () {
-          google.maps.event.trigger(GoogleMaps.maps.napMap.instance, "resize");
+
+          // If map exists, adjust it to modal size.
+          if(GoogleMaps.maps.pickerMap){
+
+            google.maps.event.trigger(GoogleMaps.maps.pickerMap.instance, "resize");
+          }
         });
     });
   </script>

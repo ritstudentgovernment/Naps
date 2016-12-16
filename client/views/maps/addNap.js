@@ -88,6 +88,16 @@ Template.addNap.events({
   }
 });
 
+/*
+Template.addNap.onDestroyed(function(){
+
+  google.maps.event.clearInstanceListeners(GoogleMaps.maps.pickerMap.instance);              // 116
+  delete GoogleMaps.maps.pickerMap; 
+  
+  alert("DESTROYED");
+});
+*/
+
 
 /**
  * Sets the current location coordinates to the fields
@@ -109,6 +119,8 @@ function locationSuccess(position){
     scaledSize: new google.maps.Size(30, 35)
   };
 
+  var map_instance = GoogleMaps.maps.napMap ? GoogleMaps.maps.napMap.instance : GoogleMaps.maps.pickerMap.instance;
+
   if(previewMarker[0]){
     previewMarker[0].setPosition({ lat: coordinates.latitude, lng: coordinates.longitude });
   }
@@ -119,7 +131,7 @@ function locationSuccess(position){
           animation: google.maps.Animation.DROP,
           position: { lat: coordinates.latitude, lng: coordinates.longitude },
           icon: previewimage,
-          map: GoogleMaps.maps.napMap.instance
+          map: map_instance
     });
 
     google.maps.event.addListener(marker, 'dragend');
@@ -127,7 +139,7 @@ function locationSuccess(position){
   } 
 
   // Pan map to current location.
-  GoogleMaps.maps.napMap.instance.panTo({lat: coordinates.latitude, lng: coordinates.longitude});
+  map_instance.panTo({lat: coordinates.latitude, lng: coordinates.longitude});
 }
 
 
