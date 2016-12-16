@@ -231,7 +231,11 @@ Template.mapMain.onCreated(function() {
     Naps.find().observe({
       added: function(document) {
 
-        createMarker(document);
+      	if(map){
+      		
+      		createMarker(document);
+      	}
+
       },
       changed: function(newDocument, oldDocument) {
 
@@ -262,19 +266,24 @@ Template.mapMain.onCreated(function() {
         markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
       },
       removed: function(oldDocument) {
-        // Remove the marker from the map
-        markers[oldDocument._id].setMap(null);
 
-        // Clear the event listener
-        google.maps.event.clearInstanceListeners(
-          markers[oldDocument._id]);
+        // If there's a marker with the oldDocuments id, delete it.
+        if(markers[oldDocument._id]){
 
-        // Remove the reference to this marker instance
-        delete markers[oldDocument._id];
+          // Remove the marker from the map
+          markers[oldDocument._id].setMap(null);
+
+          // Clear the event listener
+          google.maps.event.clearInstanceListeners(markers[oldDocument._id]);
+          
+          // Remove the reference to this marker instance
+          delete markers[oldDocument._id];
+        }
       }
     });
   });
 });
+
 
 //Trigger user change.
 var oldUser = undefined;
@@ -284,10 +293,9 @@ Tracker.autorun(function(){
   var newUser = Meteor.user();
 
   //Check if user logged in or out.
-  if(oldUser === null && newUser || newUser === null && oldUser){
+  if(oldUser === null && newUser || newUser === null && oldUser && GoogleMaps.maps.napMap){
 
-      deleteMarkers();
-
+    deleteMarkers();
     var naps = Naps.find().fetch();
 
     for(var i = 0; i < naps.length; i++){
