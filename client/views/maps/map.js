@@ -231,7 +231,7 @@ Template.mapMain.onCreated(function() {
     Naps.find().observe({
       added: function(document) {
 
-      	if(map){
+      	if(GoogleMaps.maps.napMap){
       		
       		createMarker(document);
       	}
