@@ -24,6 +24,8 @@ emailUser: function(email, emailData, actionType){
   emailData.name = creator.username;
   emailData.likesEmail = creator.likesEmail;
   emailData.unsubLink = Meteor.absoluteUrl() + 'unsubscribe/' + creator._id;
+  emailData.back_img = Meteor.absoluteUrl() + 'back_img.png';
+  console.log(emailData.back_img);
 
   // Send email depending on action type.
   if(actionType == "napAdded"){

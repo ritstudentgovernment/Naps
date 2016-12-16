@@ -32,10 +32,16 @@ Template.mapMain.events({
 
     }
 
-    google.maps.event.clearInstanceListeners(window);
-    google.maps.event.clearInstanceListeners(document);
-    google.maps.event.clearInstanceListeners(GoogleMaps.maps.pickerMap.instance);
-    $("mapModal").detach();
+    // Destroy pickerMap.
+    if(GoogleMaps.maps.pickerMap){
+      google.maps.event.clearInstanceListeners(window);
+      google.maps.event.clearInstanceListeners(document);
+      google.maps.event.clearInstanceListeners(GoogleMaps.maps.pickerMap.instance);
+      $("mapModal").detach();
+    }
+    
+    //Change url to the index.
+    history.replaceState({}, null, '/');
   },
   'click #closeImg':function(){
     $('#map').show();
@@ -96,11 +102,14 @@ function createMarker(document){
       Session.set('addingNap', undefined);
       Session.set('editingNap', undefined);
 
-        //Set the session variable with the selected nap
-        Session.set('selectedNap', document);
+      //Set the session variable with the selected nap
+      Session.set('selectedNap', document);
 
-        //Focus selected nap.
-        GoogleMaps.maps.napMap.instance.panTo(new google.maps.LatLng(document.lat, document.lng));
+      //Set url to the selectedNap.
+      history.pushState({}, null, '/nap/' + document._id);
+
+      //Focus selected nap.
+      GoogleMaps.maps.napMap.instance.panTo(new google.maps.LatLng(document.lat, document.lng));
 
       //Get the number of nap spots of this type on campus
       $('#sidebar-wrapper').addClass('toggled');
@@ -256,6 +265,7 @@ Template.mapMain.onCreated(function() {
         google.maps.event.clearListeners(markers[newDocument._id], 'click');
 
         google.maps.event.addListener(markers[newDocument._id], 'click', function() {
+
               Session.set('addingNap', undefined);
               Session.set('editingNap', undefined);
               //Set the session variable with the selected nap
