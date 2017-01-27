@@ -1,5 +1,5 @@
 Template.admin.events({
-  'submit form': function(e) {
+  'submit #users': function(e) {
     e.preventDefault();
 
     var username,
@@ -22,6 +22,29 @@ Template.admin.events({
         throwError(error.reason);
       } else {
         GAnalytics.event("account", "edit");
+      }
+    });
+  },
+  'submit #types': function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var typeNameDOM = $(event.target).find('[name=type]');
+    var typeName =  $(event.target).find('[name=type]').val();
+    var action = $(event.target).find('[name=action]').val();
+
+    Meteor.call('editTypes', typeName, action, function(error){
+
+      if(error){
+
+        throwError(error.reason);
+      }
+      else{
+
+        if(action === "add"){
+
+          typeNameDOM.val("");
+        }
       }
     });
   }

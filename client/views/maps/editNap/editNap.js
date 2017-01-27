@@ -7,6 +7,34 @@
 ///updated      : 11/01/16
 ////////////////////////////////////////////////////////////////////////////////
 
+
+/**
+ * Executed on view created.
+ * Subsribes to the spot_type collection
+ */
+Template.editNap.onCreated(function() {
+  
+  Meteor.subscribe('spot_types');
+});
+
+
+Template.editNap.helpers({
+  'types': function() {
+
+    var types = Spot_types.find().fetch();
+
+    var typeNames = [];
+
+    for(var i = 0; i < types.length; i++){
+
+      typeNames.push({value: types[i].name, label: types[i].name});
+    }
+
+    return typeNames;
+  }
+});
+
+
 Template.editNap.events({
   'click #geoLoc' : function(e){
     e.preventDefault();

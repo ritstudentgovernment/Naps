@@ -6,11 +6,18 @@
 
        <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#users" role="tab" data-toggle="tab">Users</a></li>
+          <li class="active"><a data-toggle="tab" role="tab" href="#users">Users</a></li>
+          <li><a data-toggle="tab" href="#types">Spot Types</a></li>
         </ul>
+
         <!-- Tab panes -->
         <div class="tab-content">
-          {{> users}}
+          <div id="users" class="tab-pane fade in active">
+            {{> users}}
+          </div>
+          <div id="types" class="tab-pane fade">
+            {{> spot_types}}
+          </div>
         </div>
       </div>
     </div>
@@ -36,45 +43,67 @@
 
 <template name="userList">
   {{#each users}}
-    <form>
+    <form id="users">
       <div class="input-group">
-        <input name="action"
-               value="remove"
-               type="hidden">
-        <input name="role"
-               value="{{../role}}"
-               type="hidden">
+        <input name="action" value="remove" type="hidden">
+        <input name="role" value="{{../role}}" type="hidden">
         <input name="username"
                value="{{identity.firstName.prettyPrintName}} - {{username}}"
                type="text"
                class="form-control"
                disabled>
         <span class="input-group-btn">
-          <button class="btn btn-primary"
-                  type="submit">&times;
-                  </button>
+          <button class="btn btn-primary" type="submit">&times;</button>
         </span>
       </div>
     </form>
   {{/each}}
-  <form>
+
+  <form id="users">
     <div class="input-group">
-      <input name="action"
-             value="add"
-             type="hidden">
-      <input name="role"
-             value="{{role}}"
-             type="hidden">
-      <input name="username"
-             value=""
-             type="text"
-             placeholder="abc1234"
-             class="form-control">
+      <input name="action" value="add" type="hidden">
+      <input name="role" value="{{role}}" type="hidden">
+      <input name="username" value="" type="text" placeholder="abc1234" class="form-control">
       <span class="input-group-btn">
-        <button class="btn btn-primary"
-                type="submit">+
-                </button>
+        <button class="btn btn-primary" type="submit">+</button>
       </span>
     </div>
   </form>
 </template>
+
+
+<template name="spot_types">
+  <div class="tab-container shadow">
+    <div class="col-sm-5">
+      <h2>Spot Types</h2>
+      <p>Manage the type of Nap Spots that can be created.</p>
+      {{> spotList types= types}}
+    </div>
+  </div>
+</template>
+
+
+<template name="spotList">
+  {{#each types}}
+    <form id="types">
+      <div class="input-group">
+        <input name="action" value="remove" type="hidden">
+        <input name="type" value="{{name}}" type="text" class="form-control" disabled>
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit">&times;</button>
+        </span>
+      </div>
+    </form>
+  {{/each}}
+
+  <form id="types">
+    <div class="input-group">
+      <input name="action" value="add" type="hidden">
+      <input name="type" value="" type="text" placeholder="Add type" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">+</button>
+      </span>
+    </div>
+  </form>
+</template>
+

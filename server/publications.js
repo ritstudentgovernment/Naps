@@ -35,6 +35,11 @@ Meteor.publish('revUsers', function(){
   
 });
 
+Meteor.publish('spot_types', function(){
+
+  return Spot_types.find();
+});
+
 Meteor.publish('unsubUser', function(id){
     return Meteor.users.find({_id: id});
 });

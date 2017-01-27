@@ -7,7 +7,7 @@
 			{{> afQuickField name='lng' value= lng }}
 			<a id="geoLoc" class="btn btn-primary" style="width:100%;">Get Current Location</a>
       		{{> afQuickField name="picture" type="cfs-file" value= picture collection="napsFS"}}
-      		{{> afQuickField name='spot_type' value= spot_type placeholder='Sofa'}}
+      		{{> afQuickField name='spot_type' options=types}}
       		{{> afQuickField name='size' value= size placeholder= '2 Seater'}}
       		{{> afQuickField name='qlvl' value= qlvl placeholder='0-10' min=0 max=10}}
       		{{> afQuickField name='notes' value= notes rows=2 placeholder=''}}

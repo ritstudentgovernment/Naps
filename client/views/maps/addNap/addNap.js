@@ -4,8 +4,36 @@
 ///Author   : Omar De La Hoz (oed7416@rit.edu)
 ///Description  : Javascript file for addNap template.
 ///Date Created : 09/27/16
-///updated      : 12/13/16
+///updated      : 01/27/17
 ////////////////////////////////////////////////////////////////////////////////
+///
+
+
+/**
+ * Executed on view created.
+ * Subsribes to the spot_type collection
+ */
+Template.addNap.onCreated(function() {
+  
+  Meteor.subscribe('spot_types');
+});
+
+
+Template.addNap.helpers({
+  'types': function() {
+
+    var types = Spot_types.find().fetch();
+
+    var typeNames = [];
+
+    for(var i = 0; i < types.length; i++){
+
+      typeNames.push({value: types[i].name, label: types[i].name});
+    }
+
+    return typeNames;
+  }
+});
 
 
 Template.addNap.events({
@@ -62,7 +90,6 @@ Template.addNap.events({
       // Request current position.
       window.navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
     }
-
   },
   'click #setLoc': function(){
 
@@ -87,16 +114,6 @@ Template.addNap.events({
     }
   }
 });
-
-/*
-Template.addNap.onDestroyed(function(){
-
-  google.maps.event.clearInstanceListeners(GoogleMaps.maps.pickerMap.instance);              // 116
-  delete GoogleMaps.maps.pickerMap; 
-  
-  alert("DESTROYED");
-});
-*/
 
 
 /**

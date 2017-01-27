@@ -76,8 +76,7 @@ var hooksObject = {
     //if on mobile add page go back to map
     if(routeUtils.testRoutes('addNap')){
 
-        Router.go('/');
-
+      Router.go('/');
     }
   },
 
