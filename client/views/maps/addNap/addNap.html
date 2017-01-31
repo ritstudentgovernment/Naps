@@ -11,9 +11,12 @@
 
       <div class="visible-xs">
       <a id="loadModal" class="btn btn-primary" data-toggle="modal" data-target="#mapModal" style="width:100%;">Set Location</a>
-      </div> 
-      
+      </div>
       {{> afQuickField name="picture" type="cfs-file" collection="napsFS"}}
+
+      {{#if isInRole 'admin'}}
+        {{> afQuickField name='designated' type="boolean-checkbox"}}
+      {{/if}}
       {{> afQuickField name='spot_type' options=types}}
       {{> afQuickField name='size' placeholder= '2 Seater'}}
       {{> afQuickField name='qlvl' placeholder='0-10' min=0 max=10}}
@@ -26,33 +29,35 @@
 
 
   <!-- Modal location picker for Naps Mobile -->
-  <div class="modal fade" id="mapModal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button id="cancel" type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Select Location</h4>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="map-canvas" style="width: 100%; height: 300px">
-              {{> googleMap name="pickerMap" options=exampleMapOptions}}
+  <div class="visible-xs">
+    <div class="modal fade" id="mapModal" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button id="cancel" type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">Select Location</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="map-canvas" style="width: 100%; height: 300px">
+                {{> googleMap name="pickerMap" options=exampleMapOptions}}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button id="geoLoc" type="button" class="btn btn-default" style="float: left;">
-          <span class="glyphicon glyphicon-screenshot"></span>
-          Get Location
-          </button>
-          <button id="cancel" type="button" class="btn btn-default">Cancel</button>
-          <button id="setLoc" type="button" class="btn btn-primary">Set</button>
+          <div class="modal-footer">
+            <button id="geoLoc" type="button" class="btn btn-default" style="float: left;">
+            <span class="glyphicon glyphicon-screenshot"></span>
+            Get Location
+            </button>
+            <button id="cancel" type="button" class="btn btn-default">Cancel</button>
+            <button id="setLoc" type="button" class="btn btn-primary">Set</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Adjust map to the size of modal -->
+  <!-- Adjust map to the size of modal
   <script>
     $(document).ready(function(){
         $("#mapModal").on('shown.bs.modal', function () {
@@ -65,5 +70,6 @@
         });
     });
   </script>
+  -->
   
 </template>

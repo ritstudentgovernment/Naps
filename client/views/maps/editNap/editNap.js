@@ -63,7 +63,7 @@ function locationSuccess(position){
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: { lat: coordinates.latitude, lng: coordinates.longitude },
-          icon: Session.get("previewImage"),
+          icon: previewimage,
           map: GoogleMaps.maps.napMap.instance
     });
 

@@ -59,6 +59,11 @@ Naps.attachSchema( new SimpleSchema({
 			}
 		}
 	},
+	designated:{
+		label: "Designated Area",
+		type: Boolean,
+		optional: true
+	},
 	creatorId: {
 		type: String,
 		max: 50
@@ -95,10 +100,10 @@ if (Meteor.isServer) {
       		for(var i = 0; i < parses.length; i++){
 
       			var napspot = parses[i];
-      			if(!(napspot.SpotType && napspot.QuietLevel && napspot.Latitude && napspot.Longitude)){
+      			if(!(napspot.SpotType && napspot.QuietLevel && napspot.Latitude && napspot.Longitude && napspot.Designated)){
       				
       				//Return true for the error and with error message
-      				throw new Meteor.Error(500, 'Nap Spot not added. All Entries must have a Spot Type, Quiet Level, Latitude and Longitude attribute.');
+      				throw new Meteor.Error(500, 'Nap Spot not added. All Entries must have a Spot Type, Quiet Level, Latitude, Longitude and Designated attribute.');
       				return;
       			}
       		}
@@ -114,7 +119,8 @@ if (Meteor.isServer) {
       				spot_type: napspot.SpotType,
       				qlvl: napspot.QuietLevel,
       				notes: napspot.Notes,
-
+      				designated: napspot.designated,
+      				creatorId: this.userId
       			}
       			Naps.insert(payload);
       		}

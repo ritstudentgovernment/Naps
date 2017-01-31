@@ -127,15 +127,6 @@ function locationSuccess(position){
   $('input[name=lat]').val(coordinates.latitude);
   $('input[name=lng]').val(coordinates.longitude);
 
-
-  var previewimage = {
-    url: '/previewmarker.png',
-    size: new google.maps.Size(200, 200),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(15, 35),
-    scaledSize: new google.maps.Size(30, 35)
-  };
-
   var map_instance = GoogleMaps.maps.napMap ? GoogleMaps.maps.napMap.instance : GoogleMaps.maps.pickerMap.instance;
 
   if(previewMarker[0]){

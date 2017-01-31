@@ -11,7 +11,6 @@ Template.uploadCSV.events({
     }else{
       throwError("You must choose a file!");
     }
-
   },
   'click #submitNaps':function(){
     var parses = Session.get('csvResults');
@@ -24,5 +23,4 @@ Template.uploadCSV.events({
       }
     });
   }
-
 });

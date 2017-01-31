@@ -84,13 +84,18 @@ function createMarker(document){
       animation: google.maps.Animation.DROP,
       position: new google.maps.LatLng(document.lat, document.lng),
       map: GoogleMaps.maps.napMap.instance,
-      icon: Session.get("reviewImage"),
+      icon: reviewimage,
       //Store the document id
       id: document._id
     });
 
-    if(document.approved){
-        marker.setIcon(Session.get("Image"));
+    if(document.approved && document.designated){
+
+      marker.setIcon(image);  
+    }
+    else if(document.approved){
+
+      marker.setIcon(publicimage);
     }
 
     var infowindow = new google.maps.InfoWindow({
@@ -212,34 +217,37 @@ Template.mapMain.onCreated(function() {
     });
 
     var image = {
-      url: '/napmarker.png',
+      url: '/designated_marker.png',
       size: new google.maps.Size(200, 200),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
     };
-
-    Session.set("Image", image);
 
     var previewimage = {
-      url: '/previewmarker.png',
+      url: '/preview_marker.png',
       size: new google.maps.Size(200, 200),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
     };
 
-    Session.set("previewImage", previewimage);
 
-    var reviewimage = {
-      url: '/reviewmarker.png',
+    reviewimage = {
+      url: '/review_marker.png',
       size: new google.maps.Size(200, 200),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
     };
 
-    Session.set("reviewImage", reviewimage);
+    publicimage = {
+      url: '/public_marker.png',
+      size: new google.maps.Size(200, 200),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(15, 35),
+      scaledSize: new google.maps.Size(30, 35)
+    }
 
 
     Naps.find().observe({
@@ -253,9 +261,13 @@ Template.mapMain.onCreated(function() {
       },
       changed: function(newDocument, oldDocument) {
 
-        if(newDocument.approved){
+        if(newDocument.approved && newDocument.designated){
 
           markers[newDocument._id].setIcon(image);
+        }
+        else if(newDocument.approved){
+
+          markers[newDocument._id].setIcon(publicimage);
         }
         else{
 
