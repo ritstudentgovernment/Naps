@@ -17,6 +17,8 @@
       {{#if isInRole 'admin'}}
         {{> afQuickField name='designated' type="boolean-checkbox"}}
       {{/if}}
+      {{> afQuickField name='building_name' options=buildingList}}
+      {{> afQuickField name='floor_number'}}
       {{> afQuickField name='spot_type' options=types}}
       {{> afQuickField name='size' placeholder= '2 Seater'}}
       {{> afQuickField name='qlvl' placeholder='0-10' min=0 max=10}}

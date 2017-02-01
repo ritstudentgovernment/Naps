@@ -40,6 +40,12 @@ Meteor.publish('spot_types', function(){
   return Spot_types.find();
 });
 
+Meteor.publish('buildings', function(){
+
+  return Buildings.find();
+});
+
+
 Meteor.publish('unsubUser', function(id){
     return Meteor.users.find({_id: id});
 });

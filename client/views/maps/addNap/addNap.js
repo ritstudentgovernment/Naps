@@ -16,6 +16,8 @@
 Template.addNap.onCreated(function() {
   
   Meteor.subscribe('spot_types');
+  Meteor.subscribe('buildings');
+  Meteor.call('buildingList');
 });
 
 
@@ -32,6 +34,19 @@ Template.addNap.helpers({
     }
 
     return typeNames;
+  },
+  'buildingList': function(){
+
+    var buildings = Buildings.find().fetch();
+
+    var buildingList = [];
+
+    for(var i = 0; i < buildings.length; i++){
+
+      buildingList.push({value: buildings[i].name, label: buildings[i].name});
+    }
+
+    return buildingList;
   }
 });
 
@@ -138,7 +153,7 @@ function locationSuccess(position){
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: { lat: coordinates.latitude, lng: coordinates.longitude },
-          icon: previewimage,
+          icon: Session.get("previewImage"),
           map: map_instance
     });
 

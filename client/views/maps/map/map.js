@@ -91,11 +91,11 @@ function createMarker(document){
 
     if(document.approved && document.designated){
 
-      marker.setIcon(image);  
+      marker.setIcon(Session.get("Image"));  
     }
     else if(document.approved){
 
-      marker.setIcon(publicimage);
+      marker.setIcon(Session.get("publicImage"));
     }
 
     var infowindow = new google.maps.InfoWindow({
@@ -224,6 +224,8 @@ Template.mapMain.onCreated(function() {
       scaledSize: new google.maps.Size(30, 35)
     };
 
+    Session.set("Image", image);
+
     var previewimage = {
       url: '/preview_marker.png',
       size: new google.maps.Size(200, 200),
@@ -231,6 +233,8 @@ Template.mapMain.onCreated(function() {
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
     };
+
+    Session.set("previewImage", previewimage);
 
 
     reviewimage = {
@@ -241,6 +245,9 @@ Template.mapMain.onCreated(function() {
       scaledSize: new google.maps.Size(30, 35)
     };
 
+    Session.set("reviewImage", reviewimage);
+
+
     publicimage = {
       url: '/public_marker.png',
       size: new google.maps.Size(200, 200),
@@ -248,6 +255,8 @@ Template.mapMain.onCreated(function() {
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
     }
+
+    Session.set("publicImage", publicimage);
 
 
     Naps.find().observe({

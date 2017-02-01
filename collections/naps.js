@@ -31,6 +31,16 @@ Naps.attachSchema( new SimpleSchema({
 		type: String,
 		optional: false
 	},
+	building_name:{
+		label: "Building Name",
+		type: String,
+		optional: false
+	},
+	floor_number:{
+		label: "Floor Number",
+		type: Number,
+		optional: false
+	},
 	qlvl: {
 		label: "Quiet Level",
 		type: Number,
