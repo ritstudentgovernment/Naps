@@ -1,0 +1,68 @@
+@import "variables.import.less";
+
+.spot{
+  width: 100%;
+  background: #ebebeb;
+  padding: 7px;
+  overflow: hidden;
+}
+
+.spot p{
+  display: inline;
+  padding-top: 0px;
+  margin-top: -5px; 
+}
+
+.checkbox{
+  display: inline;
+  user-select: none;
+}
+
+.checkbox label {
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 0px;
+  width: 36px;
+  height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #F36E21;
+  background: white;
+}
+
+.checkbox label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background: transparent;
+  top: 9px;
+  left: 7px;
+  border: 3px solid #f36e21;
+  border-top: none;
+  border-right: none;
+
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.checkbox label:hover::after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+  opacity: 0.3;
+}
+
+.checkbox input[type=checkbox]:checked + label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+.checkbox input[type=checkbox]{
+  display: none;
+}

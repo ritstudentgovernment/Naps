@@ -30,12 +30,14 @@
               Add an Entry
             </a>
           </li>
+          {{#if isInRole 'admin'}}
           <li class="{{ isActiveRoute 'uploadCSV' }}">
             <a href="{{ pathFor 'uploadCSV'}}">
               <span class="glyphicon glyphicon-upload"></span>
               Upload CSV
             </a>
           </li>
+          {{/if}}
           <li class="{{ isActiveRoute 'addNap' }} visible-xs">
             <a id="addNap" href="{{ pathFor 'addNap'}}">
               <span class="glyphicon glyphicon-plus"></span>

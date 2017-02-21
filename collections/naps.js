@@ -44,7 +44,15 @@ Naps.attachSchema( new SimpleSchema({
 	qlvl: {
 		label: "Quiet Level",
 		type: Number,
-		optional: false 
+		optional: false,
+		autoform:{
+			type: "select",
+			options: [{label: "Super Quiet", value: 0}, 
+					 {label: "Quiet", value: 1}, 
+					 {label: "Average", value: 2}, 
+					 {label: "Noisy", value: 3}, 
+					 {label:"Super Loud", value: 4}]
+		} 
 	},
 	notes: {
 		label: "Notes",
@@ -113,7 +121,7 @@ if (Meteor.isServer) {
       			if(!(napspot.SpotType && napspot.QuietLevel && napspot.Latitude && napspot.Longitude && napspot.Designated)){
       				
       				//Return true for the error and with error message
-      				throw new Meteor.Error(500, 'Nap Spot not added. All Entries must have a Spot Type, Quiet Level, Latitude, Longitude and Designated attribute.');
+      				throw new Meteor.Error(500, 'Nap Spot not added. All Entries must have a Spot Type, Latitude, Longitude, BuildingName, FloorNum, QuietLevel and Designated attribute.');
       				return;
       			}
       		}
@@ -126,10 +134,12 @@ if (Meteor.isServer) {
       				lat: napspot.Latitude,
       				lng: napspot.Longitude,
       				size: napspot.Size,
+      				building_name: napspot.BuildingName,
+      				floor_number: napspot.FloorNum,
       				spot_type: napspot.SpotType,
       				qlvl: napspot.QuietLevel,
       				notes: napspot.Notes,
-      				designated: napspot.designated,
+      				designated: (napspot.Designated === "TRUE"),
       				creatorId: this.userId
       			}
       			Naps.insert(payload);

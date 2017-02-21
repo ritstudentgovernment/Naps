@@ -39,6 +39,11 @@ Meteor.users.attachSchema(new SimpleSchema({
     optional: true,
     blackbox: true
   },
+  firstLogin:{
+    type: Boolean,
+    optional: true,
+    defaultValue: true,
+  },
   likesEmail: {
     type: Boolean,
     optional: false,
@@ -122,5 +127,9 @@ Meteor.methods({
 
     Meteor.users.update({username: username}, action);
 
+  },
+  'firstLogin': function(){
+
+    Meteor.users.update({_id: this.userId}, {$set: {firstLogin: false}});
   }
 });

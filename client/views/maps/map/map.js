@@ -91,6 +91,8 @@ function createMarker(document){
 
     if(document.approved && document.designated){
 
+      marker.setOptions({ optimized: false });
+      marker.setOptions({zIndex: 99999999});
       marker.setIcon(Session.get("Image"));  
     }
     else if(document.approved){
@@ -272,6 +274,8 @@ Template.mapMain.onCreated(function() {
 
         if(newDocument.approved && newDocument.designated){
 
+          markers[newDocument._id].setOptions({ optimized: false });
+          markers[newDocument._id].setOptions({zIndex: 99999999});
           markers[newDocument._id].setIcon(image);
         }
         else if(newDocument.approved){
@@ -344,5 +348,4 @@ Tracker.autorun(function(){
   }
 
   oldUser = Meteor.user();
-
 });

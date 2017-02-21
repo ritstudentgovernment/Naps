@@ -32,7 +32,7 @@ LDAP.quickAuth = function (options) {
 
   if (!exec.error) {
     var query = {username: username};
-    Meteor.users.upsert(query, {$set: query, $setOnInsert: {evaluationCounts: [], sectionIds: [], likesEmail: true}});
+    Meteor.users.upsert(query, {$set: query, $setOnInsert: {evaluationCounts: [], sectionIds: [], likesEmail: true, firstLogin: true}});
   }
   return exec;
 }

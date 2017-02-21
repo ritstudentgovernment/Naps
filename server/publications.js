@@ -32,7 +32,17 @@ Meteor.publish('revUsers', function(){
     this.stop();
     return;
   }
-  
+});
+
+
+Meteor.publish('currentUser', function(){
+
+  return Meteor.users.find({_id: this.userId}, {
+    fields:{
+      _id: 1,
+      firstLogin: 1
+    }
+  });
 });
 
 Meteor.publish('spot_types', function(){

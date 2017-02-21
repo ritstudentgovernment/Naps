@@ -11,10 +11,10 @@
       			{{> afQuickField name='designated' type="boolean-checkbox"}}
 		    {{/if}}
 		    {{> afQuickField name='building_name' options=buildingList}}
-      		{{> afQuickField name='floor_number'}}
+      		{{> afQuickField name='floor_number' min=1}}
       		{{> afQuickField name='spot_type' options=types}}
       		{{> afQuickField name='size' value= size placeholder= '2 Seater'}}
-      		{{> afQuickField name='qlvl' value= qlvl placeholder='0-10' min=0 max=10}}
+      		{{> afQuickField name='qlvl'}}
       		{{> afQuickField name='notes' value= notes rows=2 placeholder=''}}
 		</fieldset>
 		<button type="submit" class="btn btn-primary" style="width:100%;">Edit</button>

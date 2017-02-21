@@ -4,6 +4,10 @@ Template.mobileNap.helpers({
   },
   'ownPending':function(approved){
     return !approved && Meteor.user()._id;
+  },
+  label: function (qlvl) {
+
+    return _.findWhere(Naps.simpleSchema().schema('qlvl').autoform.options, { value: qlvl }).label;
   }
 })
 

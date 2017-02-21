@@ -1,5 +1,4 @@
 <template name="mapMain">
-
   <!-- Sidebar -->
   <div id="closePanel" class="close-button shadow hidden-xs">
     <a id="closeSide"><span class="glyphicon glyphicon-chevron-left slide" ></span></a>
@@ -30,7 +29,24 @@
 
   
   <div id="map" class="map-container">
-      {{> googleMap name="napMap" options=exampleMapOptions}}
+    {{#if currentUser.firstLogin}}
+      {{> welcomeView}}
+    {{/if}}
+    <div class="map-key">
+      <div>
+        <img src="/designated_marker.png">
+        Designated
+      </div>
+      <div>
+        <img src="/public_marker.png">
+        Public
+      </div>
+      <div>
+        <img src="/review_marker.png">
+        Under Review
+      </div>
+    </div>
+    {{> googleMap name="napMap" options=exampleMapOptions}}
   </div>
 
   <div id="bottombar-wrapper" class="visible-xs">
