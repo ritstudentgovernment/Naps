@@ -8,7 +8,6 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="active"><a data-toggle="tab" role="tab" href="#users">Users</a></li>
           <li><a data-toggle="tab" href="#types">Spot Types</a></li>
-          <li><a data-toggle="tab" href="#naps">Nap Manager</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -18,9 +17,6 @@
           </div>
           <div id="types" class="tab-pane fade">
             {{> spot_types}}
-          </div>
-          <div id="naps" class="tab-pane fade">
-            {{> nap_manager}}
           </div>
         </div>
       </div>
@@ -110,23 +106,3 @@
     </div>
   </form>
 </template>
-
-<template name="nap_manager">
-  <div class="tab-container shadow">
-    <div class="col-md-12">
-      <h2>Nap Manager</h2>
-      <p>Manage and moderate Nap Spots in bulk without having to use the interactive map.</p>
-      <h3>Pending Spots</h3>
-      <div class="spot">
-      <div class="checkbox">
-        <input type="checkbox" value="None" id="square" name="check" />
-        <label for="square"></label>
-      </div>
-      <p>Couch</p>
-      <button type="button" class="btn btn-primary" style="float: right;">Expand</button>
-      </div>
-      <h3>Approved Spots</h3>
-    </div>
-  </div>
-</template>
-
