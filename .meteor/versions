@@ -21,6 +21,7 @@ cfs:collection-filters@0.2.4
 cfs:data-man@0.0.6
 cfs:file@0.1.17
 cfs:filesystem@0.1.2
+cfs:graphicsmagick@0.0.18
 cfs:http-methods@0.0.29
 cfs:http-publish@0.0.13
 cfs:power-queue@0.9.11
@@ -39,6 +40,7 @@ dburles:mongo-collection-instances@0.3.4
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
+email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7

@@ -32,3 +32,5 @@ cfs:filesystem
 cfs:autoform
 mirrorcell:geolocation-plus
 harrison:papa-parse
+email
+cfs:graphicsmagick
