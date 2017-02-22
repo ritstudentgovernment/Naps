@@ -50,6 +50,23 @@ Handlebars.registerHelper('napURL', function (id) {
   return img ? img.url() : "";
 });
 
+
+Handlebars.registerHelper('napColor', function(id) {
+
+  var spot = Naps.findOne({_id: id});
+
+  if(spot.designated){
+    return "#f86c35"
+  }
+  else if(spot.approved){
+    return "#8d5632"
+  }
+  else{
+    return "#cb0020"
+  }
+});
+
+
 Handlebars.registerHelper('canReview', function() {
   if(Roles.userIsInRole(Meteor.userId(), ['reviewer','admin'])){
     return true;
