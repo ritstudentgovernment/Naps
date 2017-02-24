@@ -95,8 +95,15 @@
 }
 
 .side-nav{
+  height: calc(~"90vh - 52px");
   padding:15px;
   width:100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.side-nav::-webkit-scrollbar{
+  display: none;
 }
 
 .shadow{
@@ -108,18 +115,19 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    height: calc(~"90vh - 52px");;
+    height: calc(~"90vh - 52px");
     left: -300px;
     width: 325px;
     background: #fff;
     margin-top: 0px;
     margin-left: -250px;
-    overflow-y: auto;
+    overflow: hidden;
     -webkit-transition: all 0.75s ease;
     -moz-transition: all 0.75s ease;
     -o-transition: all 0.75s ease;
     transition: all 0.75s ease;
 }
+
 
 #bottombar-wrapper{
     width: 100%;

@@ -147,6 +147,22 @@ function deleteMarkers(){
 
 Template.mapMain.onCreated(function() {
 
+  // Add "Install Webapp" banner to app.
+  $().smartWebBanner({
+    title: "RIT Naps",
+    titleSwap: true,
+    url: '/',
+    author: "RIT Student Government",
+    useIcon: true,
+    iconGloss: false,
+    daysHidden: 3,
+    showFree: true,
+    theme: "iOS 7",
+    autoApp: false,
+    debug: false
+  });
+
+  
   GoogleMaps.ready('napMap', function(map) {
 
     var allowedBounds = new google.maps.LatLngBounds(
@@ -220,7 +236,7 @@ Template.mapMain.onCreated(function() {
 
     var image = {
       url: '/designated_marker.png',
-      size: new google.maps.Size(200, 200),
+      size: new google.maps.Size(30, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
@@ -230,7 +246,7 @@ Template.mapMain.onCreated(function() {
 
     var previewimage = {
       url: '/preview_marker.png',
-      size: new google.maps.Size(200, 200),
+      size: new google.maps.Size(30, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
@@ -241,7 +257,7 @@ Template.mapMain.onCreated(function() {
 
     reviewimage = {
       url: '/review_marker.png',
-      size: new google.maps.Size(200, 200),
+      size: new google.maps.Size(30, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)
@@ -252,7 +268,7 @@ Template.mapMain.onCreated(function() {
 
     publicimage = {
       url: '/public_marker.png',
-      size: new google.maps.Size(200, 200),
+      size: new google.maps.Size(30, 35),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(15, 35),
       scaledSize: new google.maps.Size(30, 35)

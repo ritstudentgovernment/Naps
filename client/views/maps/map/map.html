@@ -26,39 +26,28 @@
     <img style="width: 100%; height:100%; position: relative;" src="{{previewImg}}">
     </div>
   {{/if}}
-
   
   <div id="map" class="map-container">
     {{#if currentUser.firstLogin}}
       {{> welcomeView}}
     {{/if}}
     <div class="map-key">
-      <div>
-        <img src="/designated_marker.png">
-        Designated
-      </div>
-      <div>
-        <img src="/public_marker.png">
-        Public
-      </div>
-      <div>
-        <img src="/review_marker.png">
-        Under Review
-      </div>
+      <div><img src="/designated_marker.png">Designated</div>
+      <div><img src="/public_marker.png">Public</div>
+      <div><img src="/review_marker.png">Under Review</div>
     </div>
     {{> googleMap name="napMap" options=exampleMapOptions}}
   </div>
 
-  <div id="bottombar-wrapper" class="visible-xs" style="background-color: {{napColor selectedNap._id}}">
-      {{#if selectedNap}}
-          <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" style="color: black;" aria-hidden="true"></span></a>
-          {{#with selectedNap}}
+  {{#if selectedNap}}
+    <div id="bottombar-wrapper" class="visible-xs" style="background-color: {{napColor selectedNap._id}}">
+      <a id="closeSide" href="" class="pull-right"><span class="glyphicon glyphicon-remove" style="color: black;" aria-hidden="true"></span></a>
+        {{#with selectedNap}}
             {{> mobileNap}}
-          {{/with}}
-      {{/if}}
-  </div>
+        {{/with}}
+    </div>
+  {{/if}}
 </template>
 
 <template name="replace">
-
 </template>

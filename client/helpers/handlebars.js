@@ -107,6 +107,8 @@ Handlebars.registerHelper('exampleMapOptions', function(){
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
               position: google.maps.ControlPosition.TOP_RIGHT
           },
+          gestureHandling: 'greedy',
+          clickableIcons: false
         };
       }
 });
