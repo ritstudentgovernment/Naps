@@ -121,13 +121,16 @@
     background: #fff;
     margin-top: 0px;
     margin-left: -250px;
-    overflow: hidden;
+    overflow-y: auto;
     -webkit-transition: all 0.75s ease;
     -moz-transition: all 0.75s ease;
     -o-transition: all 0.75s ease;
     transition: all 0.75s ease;
 }
 
+#sidebar-wrapper::-webkit-scrollbar{
+  display: none;
+}
 
 #bottombar-wrapper{
     width: 100%;
