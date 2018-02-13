@@ -12,14 +12,15 @@
 <template name="mobileNap">
     <div class="side-header" style="background-color: {{napColor _id}}">
     <script></script>
-      <h3 class="no-margin">
+      <h3 class="no-margin">{{name}}</h3>
+      <h4 class="no-margin">
 	      {{spot_type}}
 	      {{#if picture}}
 	      	<button class="btn-min">
 	      		<span id="previewImg" napId="{{_id}}" class="glyphicon glyphicon-picture"></span>
 	      	</button>
 	      {{/if}}
-      </h3>
+      </h4>
       <p class="no-margin">{{napCount spot_type}} nap spot(s) of this type</p>
       <p class="no-margin">Building Name: {{building_name}}</p>
       <p class="no-margin">Floor Number: {{floor_number}}</p>

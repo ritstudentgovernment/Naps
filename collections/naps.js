@@ -11,6 +11,11 @@ Naps = new Mongo.Collection('naps');
 
 Naps.attachSchema( new SimpleSchema({
 
+  name: {
+    label: "Name",
+    type: String,
+    optional: true
+  },
 	lat: {
 		label: "Latitude",
 		type: String,

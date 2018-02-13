@@ -3,6 +3,7 @@
     {{#autoForm collection="Naps" id="napForm" type="insert"}}
     <fieldset>
       <legend>Add a Nap Spot</legend>
+      {{> afQuickField name='name'}}
       {{> afQuickField name='lat'}}
       {{> afQuickField name='lng'}}
       <a id="geoLoc" class="btn btn-primary" style="width:100%;">Get Current Location</a>
