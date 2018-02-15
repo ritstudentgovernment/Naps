@@ -100,7 +100,12 @@ Naps.allow({
 });
 
 NapsFS = new FS.Collection('napsFS', {
-	stores: [new FS.Store.FileSystem('napsFS')]
+	stores: [new FS.Store.FileSystem('napsFS', {
+		transformWrite: function(fileObj, readStream, writeStream) {
+			// Depends on GraphicsMagick.
+			gm(readStream, fileObj.name).resize(300, 300).autoOrient().stream().pipe(writeStream);
+		}
+	})]
 });
 
 NapsFS.allow({
